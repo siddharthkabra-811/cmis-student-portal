@@ -38,6 +38,10 @@ export async function POST(request: NextRequest) {
       needsMentor,
       password, // Optional - for new registrations
       programOfStudy, // Optional
+      profileSummary, // Optional
+      linkedinUrl, // Optional
+      gpa, // Optional
+      skills, // Optional
     } = data;
 
     // Validate required fields
@@ -119,16 +123,22 @@ export async function POST(request: NextRequest) {
       ? JSON.parse(targetIndustries || '[]')
       : Array.isArray(targetIndustries) ? targetIndustries : [];
 
+    const skillsArray = typeof skills === 'string'
+      ? JSON.parse(skills || '[]')
+      : Array.isArray(skills) ? skills : [];
+
     // Insert student into database
     const result = await query(
       `INSERT INTO students (
-        uin, name, email, degreee_type, academic_level, program_of_study,
+        uin, name, email, degree_type, academic_level, program_of_study,
         graduation_year, need_mentorship, domain_interests, target_industries,
-        resume_path, resume_path_key, password, created_by, updated_by
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-      RETURNING student_id, uin, name, email, degreee_type, academic_level,
+        resume_path, resume_path_key, password, created_by, updated_by,
+        profile_summary, linkedin_url, gpa, skills
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+      RETURNING student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
-        target_industries, resume_path, resume_path_key`,
+        target_industries, resume_path, resume_path_key, profile_summary,
+        linkedin_url, gpa, skills`,
       [
         uin,
         fullName,
@@ -145,10 +155,29 @@ export async function POST(request: NextRequest) {
         hashedPassword,
         email.toLowerCase().trim(), // created_by
         email.toLowerCase().trim(), // updated_by
+        profileSummary || null,
+        linkedinUrl || null,
+        gpa ? parseFloat(gpa) : null,
+        JSON.stringify(skillsArray),
       ]
     );
 
     const student = result.rows[0];
+
+    // Helper function to parse JSON fields
+    const parseJsonField = (field: any): string[] => {
+      if (!field) return [];
+      if (Array.isArray(field)) return field;
+      if (typeof field === 'string') {
+        try {
+          const parsed = JSON.parse(field);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return field.split(',').map((s: string) => s.trim()).filter(Boolean);
+        }
+      }
+      return [];
+    };
 
     // Return student data
     return NextResponse.json({
@@ -159,15 +188,19 @@ export async function POST(request: NextRequest) {
         uin: student.uin,
         name: student.name,
         email: student.email,
-        degreeType: student.degreee_type,
+        degreeType: student.degree_type,
         academicLevel: student.academic_level,
         programOfStudy: student.program_of_study,
         graduationYear: student.graduation_year,
         needsMentor: student.need_mentorship,
-        domainsOfInterest: JSON.parse(student.domain_interests || '[]'),
-        targetIndustries: JSON.parse(student.target_industries || '[]'),
+        domainsOfInterest: parseJsonField(student.domain_interests),
+        targetIndustries: parseJsonField(student.target_industries),
         resumeUrl: student.resume_path || '',
         resumePathKey: student.resume_path_key || '',
+        profileSummary: student.profile_summary || '',
+        linkedinUrl: student.linkedin_url || '',
+        gpa: student.gpa || null,
+        skills: parseJsonField(student.skills),
       },
     }, { status: 201 });
   } catch (error: any) {
