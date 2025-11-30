@@ -45,6 +45,8 @@ export default function RegisterPage() {
     targetIndustries: [] as string[],
     needsMentor: false,
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -68,20 +70,56 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError('');
     setIsLoading(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      // Create FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('fullName', formData.fullName);
+      formDataToSend.append('uin', formData.uin);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('degreeType', formData.degreeType);
+      formDataToSend.append('academicLevel', formData.academicLevel);
+      formDataToSend.append('graduationYear', String(formData.graduationYear));
+      formDataToSend.append('domainsOfInterest', JSON.stringify(formData.domainsOfInterest));
+      formDataToSend.append('targetIndustries', JSON.stringify(formData.targetIndustries));
+      formDataToSend.append('needsMentor', String(formData.needsMentor));
+      
+      // Add resume file if selected
+      if (resumeFile) {
+        formDataToSend.append('resume', resumeFile);
+      }
 
-    updateUser({
-      ...formData,
-      isRegistered: true,
-    });
+      // Call registration API
+      const response = await fetch('/api/students/register', {
+        method: 'POST',
+        body: formDataToSend,
+      });
 
-    setShowToast(true);
-    setTimeout(() => {
-      router.push('/profile');
-    }, 1500);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      // Update user context with new data
+      if (data.student) {
+        updateUser({
+          ...formData,
+          resumeUrl: data.student.resumeUrl || '',
+          isRegistered: true,
+        });
+      }
+
+      setShowToast(true);
+      setTimeout(() => {
+        router.push('/profile');
+      }, 1500);
+    } catch (err: any) {
+      setError(err.message || 'An error occurred during registration. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   const handleDomainToggle = (domain: string) => {
@@ -126,6 +164,12 @@ export default function RegisterPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
             {/* Full Name */}
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -293,8 +337,33 @@ export default function RegisterPage() {
                 id="resume"
                 type="file"
                 accept=".pdf,.docx"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    // Validate file type
+                    const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                    if (!allowedTypes.includes(file.type)) {
+                      setError('Invalid file type. Only PDF and DOCX files are allowed.');
+                      e.target.value = '';
+                      return;
+                    }
+                    // Validate file size (10MB)
+                    if (file.size > 10 * 1024 * 1024) {
+                      setError('File size exceeds 10MB limit.');
+                      e.target.value = '';
+                      return;
+                    }
+                    setResumeFile(file);
+                    setError('');
+                  }
+                }}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
               />
+              {resumeFile && (
+                <p className="text-xs text-green-600 mt-1">
+                  Selected: {resumeFile.name} ({(resumeFile.size / 1024 / 1024).toFixed(2)} MB)
+                </p>
+              )}
               <p className="text-xs text-gray-500 mt-1">You can upload your resume later from your profile page</p>
             </div>
 
