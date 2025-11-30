@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '@/lib/types';
-import { dummyUsers } from '@/lib/data';
 
 interface AuthContextType {
   user: User | null;
@@ -34,21 +33,60 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const foundUser = dummyUsers.find(
-      u => u.email === email && u.password === password
-    );
+      const data = await response.json();
 
-    if (foundUser) {
-      setUser(foundUser);
+      if (!response.ok) {
+        console.error('Login failed:', data.error);
+        return false;
+      }
+
+      // Map database response to User type
+      const studentData = data.student;
+      const mappedUser: User = {
+        id: String(studentData.id),
+        email: studentData.email,
+        password: '', // Don't store password in client
+        fullName: studentData.name || '',
+        uin: studentData.uin || '',
+        avatar: '/avatars/default-avatar.jpg', // Default avatar
+        bio: '', // Not in database, default empty
+        degreeType: (studentData.degreeType as 'MS' | 'PhD' | 'MBA' | 'BS' | '') || '',
+        academicLevel: (studentData.academicLevel as 'Graduate' | 'Undergraduate' | '') || '',
+        graduationYear: studentData.graduationYear || null,
+        domainsOfInterest: Array.isArray(studentData.domainsOfInterest) 
+          ? studentData.domainsOfInterest 
+          : (typeof studentData.domainsOfInterest === 'string' 
+              ? JSON.parse(studentData.domainsOfInterest || '[]') 
+              : []),
+        targetIndustries: Array.isArray(studentData.targetIndustries)
+          ? studentData.targetIndustries
+          : (typeof studentData.targetIndustries === 'string'
+              ? JSON.parse(studentData.targetIndustries || '[]')
+              : []),
+        resumeUrl: studentData.resumeUrl || '',
+        needsMentor: studentData.needsMentor || false,
+        isRegistered: true, // If they can login, they're registered
+        mentor: undefined, // Not in database, can be fetched separately if needed
+        activityLog: [], // Not in database, can be fetched separately if needed
+      };
+
+      setUser(mappedUser);
       setIsAuthenticated(true);
-      localStorage.setItem('currentUser', JSON.stringify(foundUser));
+      localStorage.setItem('currentUser', JSON.stringify(mappedUser));
       return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
     }
-
-    return false;
   };
 
   const logout = () => {
@@ -62,12 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updatedUser = { ...user, ...userData };
       setUser(updatedUser);
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-      
-      // Also update in dummy data (in a real app, this would be an API call)
-      const userIndex = dummyUsers.findIndex(u => u.id === user.id);
-      if (userIndex !== -1) {
-        dummyUsers[userIndex] = updatedUser;
-      }
+      // Note: In a production app, you would also call an API to update the database
     }
   };
 
