@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
         uin, 
         name, 
         email, 
-        degreee_type, 
+        degree_type, 
         academic_level, 
         program_of_study, 
         graduation_year, 
@@ -36,6 +36,10 @@ export async function POST(request: NextRequest) {
         target_industries, 
         resume_path, 
         resume_path_key,
+        profile_summary,
+        linkedin_url,
+        gpa,
+        skills,
         password
       FROM students 
       WHERE LOWER(email) = LOWER($1)`,
@@ -88,6 +92,21 @@ export async function POST(request: NextRequest) {
       return [];
     };
 
+    // Helper function to parse skills (can be JSON array or comma-separated string)
+    const parseSkills = (field: any): string[] => {
+      if (!field) return [];
+      if (Array.isArray(field)) return field;
+      if (typeof field === 'string') {
+        try {
+          const parsed = JSON.parse(field);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return field.split(',').map((s: string) => s.trim()).filter(Boolean);
+        }
+      }
+      return [];
+    };
+
     // Return student data (in production, you might want to generate a JWT token here)
     return NextResponse.json({
       success: true,
@@ -96,7 +115,7 @@ export async function POST(request: NextRequest) {
         uin: student.uin,
         name: student.name,
         email: student.email,
-        degreeType: student.degreee_type,
+        degreeType: student.degree_type,
         academicLevel: student.academic_level,
         programOfStudy: student.program_of_study,
         graduationYear: student.graduation_year,
@@ -105,6 +124,10 @@ export async function POST(request: NextRequest) {
         targetIndustries: parseJsonField(student.target_industries),
         resumeUrl: student.resume_path || '',
         resumePathKey: student.resume_path_key || '',
+        profileSummary: student.profile_summary || '',
+        linkedinUrl: student.linkedin_url || '',
+        gpa: student.gpa || null,
+        skills: parseSkills(student.skills),
       },
     });
   } catch (error: any) {

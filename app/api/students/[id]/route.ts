@@ -30,9 +30,10 @@ export async function GET(
 
     const result = await query(
       `SELECT 
-        student_id, uin, name, email, degreee_type, academic_level,
+        student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
-        target_industries, resume_path, resume_path_key, created_by, updated_by
+        target_industries, resume_path, resume_path_key, created_by, updated_by,
+        profile_summary, linkedin_url, gpa, skills
       FROM students 
       WHERE student_id = $1`,
       [studentId]
@@ -79,7 +80,7 @@ export async function GET(
         uin: student.uin,
         name: student.name,
         email: student.email,
-        degreeType: student.degreee_type,
+        degreeType: student.degree_type,
         academicLevel: student.academic_level,
         programOfStudy: student.program_of_study,
         graduationYear: student.graduation_year,
@@ -88,6 +89,10 @@ export async function GET(
         targetIndustries: parseJsonField(student.target_industries),
         resumeUrl: resumeUrl || student.resume_path || '',
         resumePathKey: student.resume_path_key || '',
+        profileSummary: student.profile_summary || '',
+        linkedinUrl: student.linkedin_url || '',
+        gpa: student.gpa || null,
+        skills: parseJsonField(student.skills),
         createdBy: student.created_by,
         updatedBy: student.updated_by,
       },
@@ -161,6 +166,10 @@ async function updateStudent(request: NextRequest, studentId: string) {
       needsMentor,
       password,
       programOfStudy,
+      profileSummary,
+      linkedinUrl,
+      gpa,
+      skills,
       replaceResume, // Flag to indicate if resume should be replaced
     } = data;
 
@@ -204,7 +213,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
       updateValues.push(email.toLowerCase().trim());
     }
     if (degreeType !== undefined) {
-      updateFields.push(`degreee_type = $${paramIndex++}`);
+      updateFields.push(`degree_type = $${paramIndex++}`);
       updateValues.push(degreeType);
     }
     if (academicLevel !== undefined) {
@@ -242,6 +251,25 @@ async function updateStudent(request: NextRequest, studentId: string) {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       updateFields.push(`password = $${paramIndex++}`);
       updateValues.push(hashedPassword);
+    }
+    if (profileSummary !== undefined) {
+      updateFields.push(`profile_summary = $${paramIndex++}`);
+      updateValues.push(profileSummary || null);
+    }
+    if (linkedinUrl !== undefined) {
+      updateFields.push(`linkedin_url = $${paramIndex++}`);
+      updateValues.push(linkedinUrl || null);
+    }
+    if (gpa !== undefined) {
+      updateFields.push(`gpa = $${paramIndex++}`);
+      updateValues.push(gpa ? parseFloat(gpa) : null);
+    }
+    if (skills !== undefined) {
+      const skillsArray = typeof skills === 'string'
+        ? JSON.parse(skills || '[]')
+        : Array.isArray(skills) ? skills : [];
+      updateFields.push(`skills = $${paramIndex++}`);
+      updateValues.push(JSON.stringify(skillsArray));
     }
 
     // Handle resume upload
@@ -320,9 +348,10 @@ async function updateStudent(request: NextRequest, studentId: string) {
       UPDATE students 
       SET ${updateFields.join(', ')}
       WHERE student_id = $${paramIndex}
-      RETURNING student_id, uin, name, email, degreee_type, academic_level,
+      RETURNING student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
-        target_industries, resume_path, resume_path_key
+        target_industries, resume_path, resume_path_key, profile_summary,
+        linkedin_url, gpa, skills
     `;
 
     const result = await query(updateQuery, updateValues);
@@ -361,7 +390,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
         uin: student.uin,
         name: student.name,
         email: student.email,
-        degreeType: student.degreee_type,
+        degreeType: student.degree_type,
         academicLevel: student.academic_level,
         programOfStudy: student.program_of_study,
         graduationYear: student.graduation_year,
@@ -370,6 +399,10 @@ async function updateStudent(request: NextRequest, studentId: string) {
         targetIndustries: parseJsonField(student.target_industries),
         resumeUrl: finalResumeUrl || student.resume_path || '',
         resumePathKey: student.resume_path_key || '',
+        profileSummary: student.profile_summary || '',
+        linkedinUrl: student.linkedin_url || '',
+        gpa: student.gpa || null,
+        skills: parseJsonField(student.skills),
       },
     });
   } catch (error: any) {

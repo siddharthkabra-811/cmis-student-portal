@@ -29,9 +29,10 @@ export async function GET(request: NextRequest) {
     if (studentId) {
       const result = await query(
         `SELECT 
-          student_id, uin, name, email, degreee_type, academic_level,
+          student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by
+          target_industries, resume_path, resume_path_key, created_by, updated_by,
+          profile_summary, linkedin_url, gpa, skills
         FROM students 
         WHERE student_id = $1`,
         [studentId]
@@ -64,7 +65,7 @@ export async function GET(request: NextRequest) {
           uin: student.uin,
           name: student.name,
           email: student.email,
-          degreeType: student.degreee_type,
+          degreeType: student.degree_type,
           academicLevel: student.academic_level,
           programOfStudy: student.program_of_study,
           graduationYear: student.graduation_year,
@@ -83,9 +84,10 @@ export async function GET(request: NextRequest) {
     if (email) {
       const result = await query(
         `SELECT 
-          student_id, uin, name, email, degreee_type, academic_level,
+          student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by
+          target_industries, resume_path, resume_path_key, created_by, updated_by,
+          profile_summary, linkedin_url, gpa, skills
         FROM students 
         WHERE LOWER(email) = LOWER($1)`,
         [email]
@@ -116,7 +118,7 @@ export async function GET(request: NextRequest) {
           uin: student.uin,
           name: student.name,
           email: student.email,
-          degreeType: student.degreee_type,
+          degreeType: student.degree_type,
           academicLevel: student.academic_level,
           programOfStudy: student.program_of_study,
           graduationYear: student.graduation_year,
@@ -125,6 +127,10 @@ export async function GET(request: NextRequest) {
           targetIndustries: parseJsonField(student.target_industries),
           resumeUrl: resumeUrl || student.resume_path || '',
           resumePathKey: student.resume_path_key || '',
+          profileSummary: student.profile_summary || '',
+          linkedinUrl: student.linkedin_url || '',
+          gpa: student.gpa || null,
+          skills: parseJsonField(student.skills),
           createdBy: student.created_by,
           updatedBy: student.updated_by,
         },
@@ -135,9 +141,10 @@ export async function GET(request: NextRequest) {
     if (uin) {
       const result = await query(
         `SELECT 
-          student_id, uin, name, email, degreee_type, academic_level,
+          student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by
+          target_industries, resume_path, resume_path_key, created_by, updated_by,
+          profile_summary, linkedin_url, gpa, skills
         FROM students 
         WHERE uin = $1`,
         [uin]
@@ -168,7 +175,7 @@ export async function GET(request: NextRequest) {
           uin: student.uin,
           name: student.name,
           email: student.email,
-          degreeType: student.degreee_type,
+          degreeType: student.degree_type,
           academicLevel: student.academic_level,
           programOfStudy: student.program_of_study,
           graduationYear: student.graduation_year,
@@ -177,6 +184,10 @@ export async function GET(request: NextRequest) {
           targetIndustries: parseJsonField(student.target_industries),
           resumeUrl: resumeUrl || student.resume_path || '',
           resumePathKey: student.resume_path_key || '',
+          profileSummary: student.profile_summary || '',
+          linkedinUrl: student.linkedin_url || '',
+          gpa: student.gpa || null,
+          skills: parseJsonField(student.skills),
           createdBy: student.created_by,
           updatedBy: student.updated_by,
         },
@@ -190,9 +201,10 @@ export async function GET(request: NextRequest) {
 
     const result = await query(
       `SELECT 
-        student_id, uin, name, email, degreee_type, academic_level,
+        student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
-        target_industries, resume_path, resume_path_key
+        target_industries, resume_path, resume_path_key, profile_summary,
+        linkedin_url, gpa, skills
       FROM students 
       ORDER BY student_id DESC
       LIMIT $1 OFFSET $2`,
@@ -207,7 +219,7 @@ export async function GET(request: NextRequest) {
       uin: student.uin,
       name: student.name,
       email: student.email,
-      degreeType: student.degreee_type,
+      degreeType: student.degree_type,
       academicLevel: student.academic_level,
       programOfStudy: student.program_of_study,
       graduationYear: student.graduation_year,
@@ -216,6 +228,10 @@ export async function GET(request: NextRequest) {
       targetIndustries: parseJsonField(student.target_industries),
       resumeUrl: student.resume_path || '',
       resumePathKey: student.resume_path_key || '',
+      profileSummary: student.profile_summary || '',
+      linkedinUrl: student.linkedin_url || '',
+      gpa: student.gpa || null,
+      skills: parseJsonField(student.skills),
     }));
 
     return NextResponse.json({
