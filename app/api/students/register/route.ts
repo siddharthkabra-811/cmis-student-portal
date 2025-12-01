@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
 
     // Check if student already exists
     const existingStudent = await query(
-      'SELECT student_id, email FROM students WHERE email = $1 OR uin = $2',
+      'SELECT student_id, email FROM cmis_students WHERE email = $1 OR uin = $2',
       [email.toLowerCase().trim(), uin]
     );
 
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
 
     // Insert student into database
     const result = await query(
-      `INSERT INTO students (
+      `INSERT INTO cmis_students (
         uin, name, email, degree_type, academic_level, program_of_study,
         graduation_year, need_mentorship, domain_interests, target_industries,
         resume_path, resume_path_key, password, created_by, updated_by,

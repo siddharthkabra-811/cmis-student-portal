@@ -18,9 +18,46 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    console.log('Attempting to query database for email:', email);
+    console.log('Attempting to authenticate with students_login table for email:', email);
 
-    // Query the database for the student
+    // Step 1: Verify credentials in students_login table
+    const loginResult = await query(
+      `SELECT id, email, password 
+       FROM students_login 
+       WHERE LOWER(email) = LOWER($1)`,
+      [email.trim()]
+    );
+
+    if (loginResult.rows.length === 0) {
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
+    }
+
+    const loginRecord = loginResult.rows[0];
+
+    // Check if password exists
+    if (!loginRecord.password) {
+      return NextResponse.json(
+        { error: 'Account not properly set up. Please contact administrator.' },
+        { status: 401 }
+      );
+    }
+
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(password, loginRecord.password);
+
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
+    }
+
+    console.log('✅ Authentication successful, fetching student data from cmis_students');
+
+    // Step 2: Fetch student data from cmis_students table using the email
     const result = await query(
       `SELECT 
         student_id, 
@@ -39,42 +76,40 @@ export async function POST(request: NextRequest) {
         profile_summary,
         linkedin_url,
         gpa,
-        skills,
-        password
-      FROM students 
+        skills
+      FROM cmis_students 
       WHERE LOWER(email) = LOWER($1)`,
       [email.trim()]
     );
 
+    // If student data doesn't exist in cmis_students, return basic info from login table
     if (result.rows.length === 0) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
+      console.log('⚠️  Student not found in cmis_students, returning basic login info');
+      return NextResponse.json({
+        success: true,
+        student: {
+          id: loginRecord.id,
+          email: loginRecord.email,
+          name: email.split('@')[0] || 'User',
+          uin: '',
+          degreeType: '',
+          academicLevel: '',
+          programOfStudy: '',
+          graduationYear: null,
+          needsMentor: false,
+          domainsOfInterest: [],
+          targetIndustries: [],
+          resumeUrl: '',
+          resumePathKey: '',
+          profileSummary: '',
+          linkedinUrl: '',
+          gpa: null,
+          skills: [],
+        },
+      });
     }
 
     const student = result.rows[0];
-
-    // Check if password exists (for existing records that might not have passwords)
-    if (!student.password) {
-      return NextResponse.json(
-        { error: 'Account not properly set up. Please contact administrator.' },
-        { status: 401 }
-      );
-    }
-
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, student.password);
-
-    if (!isPasswordValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    // Remove password from response
-    const { password: _, ...studentWithoutPassword } = student;
 
     // Helper function to parse JSON fields (they might be stored as JSON strings or arrays)
     const parseJsonField = (field: any): string[] => {

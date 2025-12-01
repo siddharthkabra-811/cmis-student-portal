@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
           program_of_study, graduation_year, need_mentorship, domain_interests,
           target_industries, resume_path, resume_path_key, created_by, updated_by,
           profile_summary, linkedin_url, gpa, skills
-        FROM students 
+        FROM cmis_students 
         WHERE student_id = $1`,
         [studentId]
       );
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
           program_of_study, graduation_year, need_mentorship, domain_interests,
           target_industries, resume_path, resume_path_key, created_by, updated_by,
           profile_summary, linkedin_url, gpa, skills
-        FROM students 
+        FROM cmis_students 
         WHERE LOWER(email) = LOWER($1)`,
         [email]
       );
@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
           program_of_study, graduation_year, need_mentorship, domain_interests,
           target_industries, resume_path, resume_path_key, created_by, updated_by,
           profile_summary, linkedin_url, gpa, skills
-        FROM students 
+        FROM cmis_students 
         WHERE uin = $1`,
         [uin]
       );
@@ -205,13 +205,13 @@ export async function GET(request: NextRequest) {
         program_of_study, graduation_year, need_mentorship, domain_interests,
         target_industries, resume_path, resume_path_key, profile_summary,
         linkedin_url, gpa, skills
-      FROM students 
+      FROM cmis_students 
       ORDER BY student_id DESC
       LIMIT $1 OFFSET $2`,
       [limit, offset]
     );
 
-    const countResult = await query('SELECT COUNT(*) as total FROM students');
+    const countResult = await query('SELECT COUNT(*) as total FROM cmis_students');
     const total = parseInt(countResult.rows[0].total);
 
     const students = result.rows.map(student => ({

@@ -34,7 +34,7 @@ export async function GET(
         program_of_study, graduation_year, need_mentorship, domain_interests,
         target_industries, resume_path, resume_path_key, created_by, updated_by,
         profile_summary, linkedin_url, gpa, skills
-      FROM students 
+      FROM cmis_students 
       WHERE student_id = $1`,
       [studentId]
     );
@@ -127,7 +127,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
 
     // Check if student exists
     const existingStudent = await query(
-      'SELECT student_id, resume_path_key, email FROM students WHERE student_id = $1',
+      'SELECT student_id, resume_path_key, email FROM cmis_students WHERE student_id = $1',
       [studentId]
     );
 
@@ -185,7 +185,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
     if (uin !== undefined) {
       // Check if UIN is already taken by another student
       const uinCheck = await query(
-        'SELECT student_id FROM students WHERE uin = $1 AND student_id != $2',
+        'SELECT student_id FROM cmis_students WHERE uin = $1 AND student_id != $2',
         [uin, studentId]
       );
       if (uinCheck.rows.length > 0) {
@@ -200,7 +200,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
     if (email !== undefined) {
       // Check if email is already taken by another student
       const emailCheck = await query(
-        'SELECT student_id FROM students WHERE LOWER(email) = LOWER($1) AND student_id != $2',
+        'SELECT student_id FROM cmis_students WHERE LOWER(email) = LOWER($1) AND student_id != $2',
         [email, studentId]
       );
       if (emailCheck.rows.length > 0) {
@@ -345,7 +345,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
     updateValues.push(studentId);
 
     const updateQuery = `
-      UPDATE students 
+      UPDATE cmis_students 
       SET ${updateFields.join(', ')}
       WHERE student_id = $${paramIndex}
       RETURNING student_id, uin, name, email, degree_type, academic_level,
