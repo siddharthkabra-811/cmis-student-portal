@@ -127,6 +127,9 @@ export async function POST(request: NextRequest) {
       ? JSON.parse(skills || '[]')
       : Array.isArray(skills) ? skills : [];
 
+    // Pass JavaScript arrays directly - pg library will convert to PostgreSQL array format
+    // Empty array [] → PostgreSQL {} (empty array)
+    // Array with values ["item1","item2"] → PostgreSQL {"item1","item2"}
     // Insert student into database
     const result = await query(
       `INSERT INTO cmis_students (
@@ -148,15 +151,15 @@ export async function POST(request: NextRequest) {
         programOfStudy || null,
         parseInt(graduationYear),
         needsMentor === 'true' || needsMentor === true,
-        domainsArray,
-        industriesArray,
+        domainsArray, // JavaScript array - pg converts to PostgreSQL array format
+        industriesArray, // JavaScript array - pg converts to PostgreSQL array format
         resumePath,
         resumePathKey,
         hashedPassword,
         profileSummary || null,
         linkedinUrl || null,
         gpa ? parseFloat(gpa) : null,
-        skillsArray,
+        skillsArray, // JavaScript array - pg converts to PostgreSQL array format
         true, // is_registrered - set to true when registering
       ]
     );

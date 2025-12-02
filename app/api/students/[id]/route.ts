@@ -9,7 +9,9 @@ async function parseFormData(request: NextRequest) {
   const data: any = {};
   let resumeFile: File | null = null;
 
-  for (const [key, value] of formData.entries()) {
+  // Iterate through form data entries
+  const entries = Array.from(formData.entries());
+  for (const [key, value] of entries) {
     if (key === 'resume' && value instanceof File) {
       resumeFile = value;
     } else {
@@ -239,14 +241,14 @@ async function updateStudent(request: NextRequest, studentId: string) {
         ? JSON.parse(domainsOfInterest || '[]')
         : Array.isArray(domainsOfInterest) ? domainsOfInterest : [];
       updateFields.push(`domain_interests = $${paramIndex++}`);
-      updateValues.push(domainsArray);
+      updateValues.push(domainsArray); // JavaScript array - pg converts to PostgreSQL array format
     }
     if (targetIndustries !== undefined) {
       const industriesArray = typeof targetIndustries === 'string'
         ? JSON.parse(targetIndustries || '[]')
         : Array.isArray(targetIndustries) ? targetIndustries : [];
       updateFields.push(`target_industries = $${paramIndex++}`);
-      updateValues.push(industriesArray);
+      updateValues.push(industriesArray); // JavaScript array - pg converts to PostgreSQL array format
     }
     if (password !== undefined && password !== '') {
       const saltRounds = 10;
@@ -271,7 +273,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
         ? JSON.parse(skills || '[]')
         : Array.isArray(skills) ? skills : [];
       updateFields.push(`skills = $${paramIndex++}`);
-      updateValues.push(skillsArray);
+      updateValues.push(skillsArray); // JavaScript array - pg converts to PostgreSQL array format
     }
     if (isRegistered !== undefined) {
       updateFields.push(`is_registrered = $${paramIndex++}`);
