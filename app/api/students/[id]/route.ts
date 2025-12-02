@@ -239,14 +239,14 @@ async function updateStudent(request: NextRequest, studentId: string) {
         ? JSON.parse(domainsOfInterest || '[]')
         : Array.isArray(domainsOfInterest) ? domainsOfInterest : [];
       updateFields.push(`domain_interests = $${paramIndex++}`);
-      updateValues.push(JSON.stringify(domainsArray));
+      updateValues.push(domainsArray);
     }
     if (targetIndustries !== undefined) {
       const industriesArray = typeof targetIndustries === 'string'
         ? JSON.parse(targetIndustries || '[]')
         : Array.isArray(targetIndustries) ? targetIndustries : [];
       updateFields.push(`target_industries = $${paramIndex++}`);
-      updateValues.push(JSON.stringify(industriesArray));
+      updateValues.push(industriesArray);
     }
     if (password !== undefined && password !== '') {
       const saltRounds = 10;
@@ -271,7 +271,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
         ? JSON.parse(skills || '[]')
         : Array.isArray(skills) ? skills : [];
       updateFields.push(`skills = $${paramIndex++}`);
-      updateValues.push(JSON.stringify(skillsArray));
+      updateValues.push(skillsArray);
     }
     if (isRegistered !== undefined) {
       updateFields.push(`is_registrered = $${paramIndex++}`);

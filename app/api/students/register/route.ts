@@ -148,15 +148,15 @@ export async function POST(request: NextRequest) {
         programOfStudy || null,
         parseInt(graduationYear),
         needsMentor === 'true' || needsMentor === true,
-        JSON.stringify(domainsArray),
-        JSON.stringify(industriesArray),
+        domainsArray,
+        industriesArray,
         resumePath,
         resumePathKey,
         hashedPassword,
         profileSummary || null,
         linkedinUrl || null,
         gpa ? parseFloat(gpa) : null,
-        JSON.stringify(skillsArray),
+        skillsArray,
         true, // is_registrered - set to true when registering
       ]
     );
