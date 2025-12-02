@@ -238,6 +238,8 @@ export async function POST(request: NextRequest) {
         gpa: student.gpa || null,
         skills: parseJsonField(student.skills),
         isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+        createdAt: student.created_at,
+        updatedAt: student.updated_at,
       },
     }, { status: 201 });
   } catch (error: any) {

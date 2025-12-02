@@ -18,51 +18,14 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    console.log('Attempting to authenticate with students_login table for email:', email);
+    console.log('Attempting to authenticate with cmis_students table for email:', email);
 
-    // Step 1: Verify credentials in students_login table
-    const loginResult = await query(
-      `SELECT id, email, password 
-       FROM students_login 
-       WHERE LOWER(email) = LOWER($1)`,
-      [email.trim()]
-    );
-
-    if (loginResult.rows.length === 0) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    const loginRecord = loginResult.rows[0];
-
-    // Check if password exists
-    if (!loginRecord.password) {
-      return NextResponse.json(
-        { error: 'Account not properly set up. Please contact administrator.' },
-        { status: 401 }
-      );
-    }
-
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, loginRecord.password);
-
-    if (!isPasswordValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    console.log('✅ Authentication successful, fetching student data from cmis_students');
-
-    // Step 2: Fetch student data from cmis_students table using the email
+    // Fetch student data from cmis_students table using the email
     const result = await query(
       `SELECT 
         student_id, 
         uin, 
-        name, 
+        name,
         email, 
         degree_type, 
         academic_level, 
@@ -73,45 +36,49 @@ export async function POST(request: NextRequest) {
         target_industries, 
         resume_path, 
         resume_path_key,
+        created_at,
+        updated_at,
         profile_summary,
+        profile_summary_embedding,
         linkedin_url,
         gpa,
         skills,
+        password,
         is_registrered
       FROM cmis_students 
       WHERE LOWER(email) = LOWER($1)`,
       [email.trim()]
     );
 
-    // If student data doesn't exist in cmis_students, return basic info from login table
+    // If student doesn't exist
     if (result.rows.length === 0) {
-      console.log('⚠️  Student not found in cmis_students, returning basic login info');
-      return NextResponse.json({
-        success: true,
-        student: {
-          id: loginRecord.id,
-          email: loginRecord.email,
-          name: email.split('@')[0] || 'User',
-          uin: '',
-          degreeType: '',
-          academicLevel: '',
-          programOfStudy: '',
-          graduationYear: null,
-          needsMentor: false,
-          domainsOfInterest: [],
-          targetIndustries: [],
-          resumeUrl: '',
-          resumePathKey: '',
-          profileSummary: '',
-          linkedinUrl: '',
-          gpa: null,
-          skills: [],
-          isRegistered: false,
-        },
-      });
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
     }
 
     const student = result.rows[0];
+
+    // Check if password exists
+    if (!student.password) {
+      return NextResponse.json(
+        { error: 'Account not properly set up. Please contact administrator.' },
+        { status: 401 }
+      );
+    }
+
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(password, student.password);
+
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
+    }
+
+    console.log('✅ Authentication successful');
 
     // Helper function to parse JSON fields (they might be stored as JSON strings or arrays)
     const parseJsonField = (field: any): string[] => {
@@ -150,7 +117,7 @@ export async function POST(request: NextRequest) {
       student: {
         id: student.student_id,
         uin: student.uin,
-        name: student.name,
+        name: student.name || email.split('@')[0] || 'User',
         email: student.email,
         degreeType: student.degree_type,
         academicLevel: student.academic_level,
@@ -166,6 +133,8 @@ export async function POST(request: NextRequest) {
         gpa: student.gpa || null,
         skills: parseSkills(student.skills),
         isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+        createdAt: student.created_at,
+        updatedAt: student.updated_at,
       },
     });
   } catch (error: any) {
