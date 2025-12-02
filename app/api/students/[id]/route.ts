@@ -32,8 +32,8 @@ export async function GET(
       `SELECT 
         student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
-        target_industries, resume_path, resume_path_key, created_by, updated_by,
-        profile_summary, linkedin_url, gpa, skills
+        target_industries, resume_path, resume_path_key, created_at, updated_at,
+        profile_summary, linkedin_url, gpa, skills, is_registrered
       FROM cmis_students 
       WHERE student_id = $1`,
       [studentId]
@@ -93,8 +93,9 @@ export async function GET(
         linkedinUrl: student.linkedin_url || '',
         gpa: student.gpa || null,
         skills: parseJsonField(student.skills),
-        createdBy: student.created_by,
-        updatedBy: student.updated_by,
+        isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+        createdAt: student.created_at,
+        updatedAt: student.updated_at,
       },
     });
   } catch (error: any) {
@@ -170,6 +171,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
       linkedinUrl,
       gpa,
       skills,
+      isRegistered,
       replaceResume, // Flag to indicate if resume should be replaced
     } = data;
 
@@ -271,6 +273,10 @@ async function updateStudent(request: NextRequest, studentId: string) {
       updateFields.push(`skills = $${paramIndex++}`);
       updateValues.push(JSON.stringify(skillsArray));
     }
+    if (isRegistered !== undefined) {
+      updateFields.push(`is_registrered = $${paramIndex++}`);
+      updateValues.push(isRegistered === 'true' || isRegistered === true);
+    }
 
     // Handle resume upload
     let resumePath = null;
@@ -329,12 +335,11 @@ async function updateStudent(request: NextRequest, studentId: string) {
       }
     }
 
-    // Always update updated_by
-    updateFields.push(`updated_by = $${paramIndex++}`);
-    updateValues.push(data.email || existingStudent.rows[0].email);
+    // Always update updated_at timestamp
+    updateFields.push(`updated_at = NOW()`);
 
-    if (updateFields.length === 1) {
-      // Only updated_by was added, no actual fields to update
+    if (updateFields.length === 0) {
+      // No fields to update (updated_at is set automatically)
       return NextResponse.json(
         { error: 'No fields to update' },
         { status: 400 }
@@ -351,7 +356,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
       RETURNING student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
         target_industries, resume_path, resume_path_key, profile_summary,
-        linkedin_url, gpa, skills
+        linkedin_url, gpa, skills, is_registrered, created_at, updated_at
     `;
 
     const result = await query(updateQuery, updateValues);
@@ -403,6 +408,9 @@ async function updateStudent(request: NextRequest, studentId: string) {
         linkedinUrl: student.linkedin_url || '',
         gpa: student.gpa || null,
         skills: parseJsonField(student.skills),
+        isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+        createdAt: student.created_at,
+        updatedAt: student.updated_at,
       },
     });
   } catch (error: any) {

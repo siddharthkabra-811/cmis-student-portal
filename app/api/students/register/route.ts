@@ -132,13 +132,13 @@ export async function POST(request: NextRequest) {
       `INSERT INTO cmis_students (
         uin, name, email, degree_type, academic_level, program_of_study,
         graduation_year, need_mentorship, domain_interests, target_industries,
-        resume_path, resume_path_key, password, created_by, updated_by,
-        profile_summary, linkedin_url, gpa, skills
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
+        resume_path, resume_path_key, password, profile_summary, linkedin_url, 
+        gpa, skills, is_registrered, created_at, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, NOW(), NOW())
       RETURNING student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
         target_industries, resume_path, resume_path_key, profile_summary,
-        linkedin_url, gpa, skills`,
+        linkedin_url, gpa, skills, is_registrered, created_at, updated_at`,
       [
         uin,
         fullName,
@@ -153,12 +153,11 @@ export async function POST(request: NextRequest) {
         resumePath,
         resumePathKey,
         hashedPassword,
-        email.toLowerCase().trim(), // created_by
-        email.toLowerCase().trim(), // updated_by
         profileSummary || null,
         linkedinUrl || null,
         gpa ? parseFloat(gpa) : null,
         JSON.stringify(skillsArray),
+        true, // is_registrered - set to true when registering
       ]
     );
 
@@ -201,6 +200,7 @@ export async function POST(request: NextRequest) {
         linkedinUrl: student.linkedin_url || '',
         gpa: student.gpa || null,
         skills: parseJsonField(student.skills),
+        isRegistered: student.is_registrered === true || student.is_registrered === 'true',
       },
     }, { status: 201 });
   } catch (error: any) {

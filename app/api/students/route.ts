@@ -31,8 +31,8 @@ export async function GET(request: NextRequest) {
         `SELECT 
           student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by,
-          profile_summary, linkedin_url, gpa, skills
+          target_industries, resume_path, resume_path_key, created_at, updated_at,
+          profile_summary, linkedin_url, gpa, skills, is_registrered
         FROM cmis_students 
         WHERE student_id = $1`,
         [studentId]
@@ -74,8 +74,13 @@ export async function GET(request: NextRequest) {
           targetIndustries: parseJsonField(student.target_industries),
           resumeUrl: resumeUrl || student.resume_path || '',
           resumePathKey: student.resume_path_key || '',
-          createdBy: student.created_by,
-          updatedBy: student.updated_by,
+          profileSummary: student.profile_summary || '',
+          linkedinUrl: student.linkedin_url || '',
+          gpa: student.gpa || null,
+          skills: parseJsonField(student.skills),
+          isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+          createdAt: student.created_at,
+          updatedAt: student.updated_at,
         },
       });
     }
@@ -86,8 +91,8 @@ export async function GET(request: NextRequest) {
         `SELECT 
           student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by,
-          profile_summary, linkedin_url, gpa, skills
+          target_industries, resume_path, resume_path_key, created_at, updated_at,
+          profile_summary, linkedin_url, gpa, skills, is_registrered
         FROM cmis_students 
         WHERE LOWER(email) = LOWER($1)`,
         [email]
@@ -131,8 +136,9 @@ export async function GET(request: NextRequest) {
           linkedinUrl: student.linkedin_url || '',
           gpa: student.gpa || null,
           skills: parseJsonField(student.skills),
-          createdBy: student.created_by,
-          updatedBy: student.updated_by,
+          isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+          createdAt: student.created_at,
+          updatedAt: student.updated_at,
         },
       });
     }
@@ -143,8 +149,8 @@ export async function GET(request: NextRequest) {
         `SELECT 
           student_id, uin, name, email, degree_type, academic_level,
           program_of_study, graduation_year, need_mentorship, domain_interests,
-          target_industries, resume_path, resume_path_key, created_by, updated_by,
-          profile_summary, linkedin_url, gpa, skills
+          target_industries, resume_path, resume_path_key, created_at, updated_at,
+          profile_summary, linkedin_url, gpa, skills, is_registrered
         FROM cmis_students 
         WHERE uin = $1`,
         [uin]
@@ -188,8 +194,9 @@ export async function GET(request: NextRequest) {
           linkedinUrl: student.linkedin_url || '',
           gpa: student.gpa || null,
           skills: parseJsonField(student.skills),
-          createdBy: student.created_by,
-          updatedBy: student.updated_by,
+          isRegistered: student.is_registrered === true || student.is_registrered === 'true',
+          createdAt: student.created_at,
+          updatedAt: student.updated_at,
         },
       });
     }
@@ -204,7 +211,7 @@ export async function GET(request: NextRequest) {
         student_id, uin, name, email, degree_type, academic_level,
         program_of_study, graduation_year, need_mentorship, domain_interests,
         target_industries, resume_path, resume_path_key, profile_summary,
-        linkedin_url, gpa, skills
+        linkedin_url, gpa, skills, is_registrered
       FROM cmis_students 
       ORDER BY student_id DESC
       LIMIT $1 OFFSET $2`,
@@ -232,6 +239,7 @@ export async function GET(request: NextRequest) {
       linkedinUrl: student.linkedin_url || '',
       gpa: student.gpa || null,
       skills: parseJsonField(student.skills),
+      isRegistered: student.is_registrered === true || student.is_registrered === 'true',
     }));
 
     return NextResponse.json({
