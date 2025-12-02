@@ -76,7 +76,8 @@ export async function POST(request: NextRequest) {
         profile_summary,
         linkedin_url,
         gpa,
-        skills
+        skills,
+        is_registrered
       FROM cmis_students 
       WHERE LOWER(email) = LOWER($1)`,
       [email.trim()]
@@ -105,6 +106,7 @@ export async function POST(request: NextRequest) {
           linkedinUrl: '',
           gpa: null,
           skills: [],
+          isRegistered: false,
         },
       });
     }
@@ -163,6 +165,7 @@ export async function POST(request: NextRequest) {
         linkedinUrl: student.linkedin_url || '',
         gpa: student.gpa || null,
         skills: parseSkills(student.skills),
+        isRegistered: student.is_registrered === true || student.is_registrered === 'true',
       },
     });
   } catch (error: any) {
