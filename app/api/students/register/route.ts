@@ -52,6 +52,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate degreeType - check against common values
+    // The database has a check constraint that may only allow specific values
+    const validDegreeTypes = ['MS', 'PhD', 'MBA', 'BS', 'Masters', 'Ph.D', 'Bachelor'];
+    // Note: If this fails, check your database constraint for exact allowed values
+    // Run: SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conname = 'students_degree_type_check';
+
     // Check if student already exists
     const existingStudent = await query(
       'SELECT student_id, email FROM cmis_students WHERE email = $1 OR uin = $2',
@@ -115,17 +121,45 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse arrays (they come as strings from form data)
-    const domainsArray = typeof domainsOfInterest === 'string'
-      ? JSON.parse(domainsOfInterest || '[]')
-      : Array.isArray(domainsOfInterest) ? domainsOfInterest : [];
+    let domainsArray: any[] = [];
+    let industriesArray: any[] = [];
+    let skillsArray: any[] = [];
 
-    const industriesArray = typeof targetIndustries === 'string'
-      ? JSON.parse(targetIndustries || '[]')
-      : Array.isArray(targetIndustries) ? targetIndustries : [];
+    try {
+      domainsArray = typeof domainsOfInterest === 'string'
+        ? JSON.parse(domainsOfInterest || '[]')
+        : Array.isArray(domainsOfInterest) ? domainsOfInterest : [];
+    } catch (e) {
+      console.error('Error parsing domainsOfInterest:', e);
+      return NextResponse.json(
+        { error: 'Invalid domainsOfInterest format. Expected JSON array.' },
+        { status: 400 }
+      );
+    }
 
-    const skillsArray = typeof skills === 'string'
-      ? JSON.parse(skills || '[]')
-      : Array.isArray(skills) ? skills : [];
+    try {
+      industriesArray = typeof targetIndustries === 'string'
+        ? JSON.parse(targetIndustries || '[]')
+        : Array.isArray(targetIndustries) ? targetIndustries : [];
+    } catch (e) {
+      console.error('Error parsing targetIndustries:', e);
+      return NextResponse.json(
+        { error: 'Invalid targetIndustries format. Expected JSON array.' },
+        { status: 400 }
+      );
+    }
+
+    try {
+      skillsArray = typeof skills === 'string'
+        ? JSON.parse(skills || '[]')
+        : Array.isArray(skills) ? skills : [];
+    } catch (e) {
+      console.error('Error parsing skills:', e);
+      return NextResponse.json(
+        { error: 'Invalid skills format. Expected JSON array.' },
+        { status: 400 }
+      );
+    }
 
     // Pass JavaScript arrays directly - pg library will convert to PostgreSQL array format
     // Empty array [] → PostgreSQL {} (empty array)
@@ -208,8 +242,50 @@ export async function POST(request: NextRequest) {
     }, { status: 201 });
   } catch (error: any) {
     console.error('Registration error:', error);
+    console.error('Error details:', {
+      message: error?.message,
+      code: error?.code,
+      detail: error?.detail,
+      constraint: error?.constraint,
+      stack: error?.stack,
+    });
+    
+    // Handle check constraint violations with helpful messages
+    if (error?.code === '23514' && error?.constraint) {
+      let helpfulMessage = error?.message || 'Validation error';
+      
+      if (error.constraint === 'students_degree_type_check') {
+        helpfulMessage = 'Invalid degree type. Please check the allowed values in your database. Common values: MS, PhD, MBA, BS. Run this SQL to check: SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conname = \'students_degree_type_check\';';
+      }
+      
+      return NextResponse.json(
+        { 
+          error: helpfulMessage,
+          ...(process.env.NODE_ENV === 'development' && { 
+            details: error?.detail,
+            code: error?.code,
+            constraint: error?.constraint,
+            hint: 'Check your database constraint definition for allowed values'
+          })
+        },
+        { status: 400 }
+      );
+    }
+    
+    // Return more detailed error in development
+    const errorMessage = process.env.NODE_ENV === 'development' 
+      ? error?.message || error?.detail || 'An error occurred during registration. Please try again.'
+      : 'An error occurred during registration. Please try again.';
+    
     return NextResponse.json(
-      { error: 'An error occurred during registration. Please try again.' },
+      { 
+        error: errorMessage,
+        ...(process.env.NODE_ENV === 'development' && { 
+          details: error?.detail,
+          code: error?.code,
+          constraint: error?.constraint,
+        })
+      },
       { status: 500 }
     );
   }
