@@ -55,14 +55,14 @@ export async function uploadToS3(
 
   await s3Client.send(command);
 
-  // Generate presigned URL (valid for 1 year)
+  // Generate presigned URL (valid for 6 days - AWS S3 v4 limit is 7 days)
   const url = await getSignedUrl(
     s3Client,
     new GetObjectCommand({
       Bucket: BUCKET_NAME,
       Key: key,
     }),
-    { expiresIn: 31536000 } // 1 year
+    { expiresIn: 518400 } // 6 days (AWS S3 v4 presigned URLs max is 7 days)
   );
 
   return {
