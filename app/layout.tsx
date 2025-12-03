@@ -1,8 +1,10 @@
+import { Toaster } from "@/components/sonner";
+import { AuthProvider } from "@/lib/auth-context";
+import { NotificationProvider } from "@/lib/notification-context";
+import Providers from "@/providers/QuertClientProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/lib/auth-context";
-import { NotificationProvider } from "@/lib/notification-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +23,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <NotificationProvider>
-            {children}
+            <Providers>
+              {children}
+              <Toaster />
+            </Providers>
           </NotificationProvider>
         </AuthProvider>
       </body>
