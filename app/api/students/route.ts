@@ -121,11 +121,6 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Convert resumeUrl to array format
-      const resumeUrlArray = (resumeUrl || student.resume_path) 
-        ? [resumeUrl || student.resume_path] 
-        : [];
-
       return NextResponse.json({
         success: true,
         student: {
@@ -140,7 +135,7 @@ export async function GET(request: NextRequest) {
           needsMentor: student.need_mentorship,
           domainsOfInterest: parseJsonField(student.domain_interests),
           targetIndustries: parseJsonField(student.target_industries),
-          resumeUrl: resumeUrlArray, // Return as array
+          resumeUrl: resumeUrl || student.resume_path || '',
           resumePathKey: student.resume_path_key || '',
           profileSummary: student.profile_summary || '',
           linkedinUrl: student.linkedin_url || '',
@@ -184,11 +179,6 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Convert resumeUrl to array format
-      const resumeUrlArray = (resumeUrl || student.resume_path) 
-        ? [resumeUrl || student.resume_path] 
-        : [];
-
       return NextResponse.json({
         success: true,
         student: {
@@ -203,7 +193,7 @@ export async function GET(request: NextRequest) {
           needsMentor: student.need_mentorship,
           domainsOfInterest: parseJsonField(student.domain_interests),
           targetIndustries: parseJsonField(student.target_industries),
-          resumeUrl: resumeUrlArray, // Return as array
+          resumeUrl: resumeUrl || student.resume_path || '',
           resumePathKey: student.resume_path_key || '',
           profileSummary: student.profile_summary || '',
           linkedinUrl: student.linkedin_url || '',
@@ -248,7 +238,7 @@ export async function GET(request: NextRequest) {
       needsMentor: student.need_mentorship,
       domainsOfInterest: parseJsonField(student.domain_interests),
       targetIndustries: parseJsonField(student.target_industries),
-      resumeUrl: student.resume_path ? [student.resume_path] : [], // Return as array
+      resumeUrl: student.resume_path || '',
       resumePathKey: student.resume_path_key || '',
       profileSummary: student.profile_summary || '',
       linkedinUrl: student.linkedin_url || '',

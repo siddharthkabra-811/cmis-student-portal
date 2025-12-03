@@ -33,7 +33,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const userDetails = localStorage.getItem("currentUser");
   const [formData, setFormData] = useState({
-    fullName: userDetails ? JSON.parse(userDetails).fullName : "",
+    name: userDetails ? JSON.parse(userDetails).name : "",
     uin: userDetails ? JSON.parse(userDetails).uin : "",
     email: userDetails ? JSON.parse(userDetails).email : "",
     linkedinUrl: "",
@@ -56,7 +56,7 @@ export default function RegisterPage() {
     try {
       // Create FormData for file upload
       const formDataToSend = new FormData();
-      formDataToSend.append("fullName", formData.fullName);
+      formDataToSend.append("name", formData.name);
       formDataToSend.append("uin", formData.uin);
       formDataToSend.append("email", formData.email);
       formDataToSend.append("linkedinUrl", formData.linkedinUrl);
@@ -149,19 +149,19 @@ export default function RegisterPage() {
             {/* Full Name */}
             <div>
               <label
-                htmlFor="fullName"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Full Name *
               </label>
               <input
-                id="fullName"
+                id="name"
                 type="text"
                 required
                 placeholder="Enter name"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={(e) =>
-                  setFormData({ ...formData, fullName: e.target.value })
+                  setFormData({ ...formData, name: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
               />

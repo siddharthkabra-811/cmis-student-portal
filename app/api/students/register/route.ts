@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Extract and validate required fields
     const {
-      fullName,
+      name,
       uin,
       email,
       degreeType,
@@ -45,9 +45,9 @@ export async function POST(request: NextRequest) {
     } = data;
 
     // Validate required fields
-    if (!fullName || !uin || !email || !degreeType || !academicLevel || !graduationYear) {
+    if (!name || !uin || !email || !degreeType || !academicLevel || !graduationYear) {
       return NextResponse.json(
-        { error: 'Missing required fields: fullName, uin, email, degreeType, academicLevel, graduationYear' },
+        { error: 'Missing required fields: name, uin, email, degreeType, academicLevel, graduationYear' },
         { status: 400 }
       );
     }
@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
     let paramIndex = 1;
 
     updateFields.push(`name = $${paramIndex++}`);
-    updateValues.push(fullName);
+    updateValues.push(name);
 
     updateFields.push(`degree_type = $${paramIndex++}`);
     updateValues.push(degreeType);

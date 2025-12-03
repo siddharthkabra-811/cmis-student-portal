@@ -34,7 +34,7 @@ export default function LoginPage() {
         id: String(studentData.id),
         email: studentData.email,
         password: "", // Don't store password in client
-        fullName: studentData.name || "",
+        name: studentData.name || "",
         uin: studentData.uin || "",
         avatar: "/avatars/default-avatar.jpg", // Default avatar
         bio: "", // Not in database, default empty

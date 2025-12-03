@@ -163,7 +163,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
 
     // Extract fields
     const {
-      fullName,
+      name,
       uin,
       email,
       degreeType,
@@ -187,9 +187,9 @@ async function updateStudent(request: NextRequest, studentId: string) {
     const updateValues: any[] = [];
     let paramIndex = 1;
 
-    if (fullName !== undefined) {
+    if (name !== undefined) {
       updateFields.push(`name = $${paramIndex++}`);
-      updateValues.push(fullName);
+      updateValues.push(name);
     }
     if (uin !== undefined) {
       // Check if UIN is already taken by another student
