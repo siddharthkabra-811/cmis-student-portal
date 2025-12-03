@@ -1,48 +1,54 @@
 "use client";
 
 import Navigation from "@/components/Navigation";
+import { fetchEvents } from "@/lib/api/events";
 import { useAuth } from "@/lib/auth-context";
 import { useNotifications } from "@/lib/notification-context";
-import { Event } from "@/lib/types";
-import { fetchEvents, mapApiEventToEvent } from "@/lib/api/events";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 
+// Dummy images for events
+const DUMMY_EVENT_IMAGES = [
+  "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&auto=format&fit=crop",
+];
+
+// Function to get a random image from the dummy images array
+function getRandomEventImage(): string {
+  return DUMMY_EVENT_IMAGES[Math.floor(Math.random() * DUMMY_EVENT_IMAGES.length)];
+}
+
 export default function EventsPage() {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadEvents() {
+  const {
+    data: events,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
       try {
-        setIsLoading(true);
-        setError(null);
-        const response = await fetchEvents({ limit: 100 }); // Fetch all events
-        
-        if (response.success && response.events) {
-          const mappedEvents = response.events.map(mapApiEventToEvent);
-          setEvents(mappedEvents);
-        } else {
-          throw new Error("Failed to load events");
-        }
-      } catch (err: any) {
-        console.error("Error loading events:", err);
-        setError(err.message || "Failed to load events");
-        toast.error("Failed to load events. Please try again.");
-      } finally {
-        setIsLoading(false);
+        const events = await fetchEvents();
+        return events?.events;
+      } catch (error) {
+        toast.error("Failed to load events.");
+        throw error;
       }
-    }
+    },
+  });
 
-    loadEvents();
-  }, []);
-
-  const upcomingEvents = events.filter((e) => !e.isPast);
-  const pastEvents = events.filter((e) => e.isPast);
+  const upcomingEvents = (events ?? []).filter(
+    (e) => new Date(e.eventDate).getTime() >= Date.now()
+  );
+  const pastEvents = (events ?? []).filter(
+    (e) => new Date(e.eventDate).getTime() < Date.now()
+  );
 
   if (isLoading) {
     return (
@@ -55,7 +61,10 @@ export default function EventsPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div
+                key={i}
+                className="bg-white rounded-xl shadow-md overflow-hidden"
+              >
                 <div className="h-48 bg-gray-200 animate-pulse"></div>
                 <div className="p-6">
                   <div className="h-4 bg-gray-200 rounded w-24 mb-2 animate-pulse"></div>
@@ -70,34 +79,9 @@ export default function EventsPage() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Navigation />
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Events</h1>
-            <p className="text-gray-600">Discover and register for CMIS events</p>
-          </div>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <p className="text-red-800 font-semibold mb-2">Error loading events</p>
-            <p className="text-red-600">{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-            >
-              Retry
-            </button>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Events</h1>
@@ -130,9 +114,7 @@ export default function EventsPage() {
             ))}
           </div>
           {pastEvents.length === 0 && (
-            <p className="text-gray-500 text-center py-8">
-              No past events.
-            </p>
+            <p className="text-gray-500 text-center py-8">No past events.</p>
           )}
         </section>
       </main>
@@ -140,27 +122,53 @@ export default function EventsPage() {
   );
 }
 
+// Helper function to format time from "HH:MM:SS" to "h:MM AM/PM"
+function formatTime(timeString: string): string {
+  if (!timeString) return "";
+  
+  const [hours, minutes] = timeString.split(":");
+  const hour = parseInt(hours, 10);
+  const minute = parseInt(minutes, 10);
+  
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+  
+  return `${displayHour}:${minute.toString().padStart(2, "0")} ${period}`;
+}
+
 function EventCard({
   event,
   isPast = false,
 }: {
-  event: Event;
+  event: any;
   isPast?: boolean;
 }) {
   const { user } = useAuth();
   const { addNotification } = useNotifications();
-  const router = useRouter();
-  const [isRegistered, setIsRegistered] = useState(
-    event.attendees.includes(user?.id || "")
+  const [isStudentRegistered, setIsStudentRegistered] = useState(false);
+  const [isRegisteredForEvent, setIsRegisteredForEvent] = useState(
+    event.attendees?.includes(user?.id || "")
   );
+
+  useEffect(() => {
+    // Check if user is registered in CMIS from localStorage
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+      const userData = JSON.parse(currentUser);
+      setIsStudentRegistered(userData.isRegistered || false);
+    }
+  }, []);
 
   const handleRegister = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!user) return;
 
     // Add user to attendees
+    if (!event.attendees) {
+      event.attendees = [];
+    }
     event.attendees.push(user.id);
-    setIsRegistered(true);
+    setIsRegisteredForEvent(true);
 
     // Create notification
     addNotification({
@@ -168,7 +176,7 @@ function EventCard({
       type: "event_registration",
       title: "Registration Confirmed",
       message: `You're registered for ${event.title} on ${new Date(
-        event.date
+        event.eventDate
       ).toLocaleDateString()}.`,
       actionUrl: `/events/${event.id}`,
       actionText: "View Event",
@@ -176,15 +184,15 @@ function EventCard({
     });
 
     // Show success message
-    alert(`Successfully registered for ${event.title}!`);
+    toast.success(`Successfully registered for ${event.title}!`);
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group">
-      <Link href={`/events/${event.id}`}>
-        <div className="relative h-48 bg-gray-200">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition group flex flex-col h-full">
+      <Link href={`/events/${event.id}`} className="flex-1 flex flex-col">
+        <div className="relative h-48 bg-gray-200 flex-shrink-0">
           <Image
-            src={event.image}
+            src={event.image || getRandomEventImage()}
             alt={event.title}
             fill
             className="object-cover group-hover:scale-105 transition duration-300"
@@ -196,7 +204,7 @@ function EventCard({
           )}
         </div>
 
-        <div className="p-6">
+        <div className="p-6 flex-1 flex flex-col">
           <div className="flex items-center text-sm text-gray-600 mb-2">
             <svg
               className="w-4 h-4 mr-1"
@@ -211,7 +219,7 @@ function EventCard({
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            {new Date(event.date).toLocaleDateString("en-US", {
+            {new Date(event.eventDate).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
@@ -230,19 +238,21 @@ function EventCard({
                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            {event.time}
+            {event.startTime && event.endTime
+              ? `${formatTime(event.startTime)} - ${formatTime(event.endTime)}`
+              : event.time}
           </div>
 
           <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-maroon-600 transition">
             {event.title}
           </h3>
 
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          <p className="text-gray-600 text-sm line-clamp-2">
             {event.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-4">
-            {event.tags.slice(0, 3).map((tag) => (
+          {/* <div className="flex flex-wrap gap-2 mb-4">
+            {event.tags.slice(0, 3).map((tag: any) => (
               <span
                 key={tag}
                 className="px-2 py-1 bg-maroon-50 text-maroon-700 text-xs rounded-full"
@@ -250,22 +260,22 @@ function EventCard({
                 {tag.replace(/_/g, " ")}
               </span>
             ))}
-          </div>
+          </div> */}
         </div>
       </Link>
 
-      <div className="px-6 pb-6 flex gap-3">
-        {!isPast && (
+      <div className="px-6 pb-6 flex gap-3 mt-auto">
+        {!isPast && isStudentRegistered && (
           <button
             onClick={handleRegister}
-            disabled={isRegistered}
+            disabled={isRegisteredForEvent}
             className={`flex-1 py-2 px-4 rounded-lg font-semibold transition ${
-              isRegistered
+              isRegisteredForEvent
                 ? "bg-green-100 text-green-700 cursor-default"
                 : "bg-maroon-500 text-white hover:bg-maroon-600"
             }`}
           >
-            {isRegistered ? "✓ Registered" : "Register"}
+            {isRegisteredForEvent ? "✓ Registered" : "Register"}
           </button>
         )}
         <Link
