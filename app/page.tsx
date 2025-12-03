@@ -1,31 +1,85 @@
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
+import { User } from "@/lib/types";
+import { useRouter } from "next/navigation";
+import React, { FormEvent, useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { login } = useAuth();
 
+  const login = async (email: string, password: string): Promise<boolean> => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Login failed:", data.error);
+        return false;
+      }
+
+      // Map database response to User type
+      const studentData = data.student;
+      const mappedUser: User = {
+        id: String(studentData.id),
+        email: studentData.email,
+        password: "", // Don't store password in client
+        fullName: studentData.name || "",
+        uin: studentData.uin || "",
+        avatar: "/avatars/default-avatar.jpg", // Default avatar
+        bio: "", // Not in database, default empty
+        degreeType: studentData.degreeType || "",
+        academicLevel: studentData.academicLevel || "",
+        graduationYear: studentData.graduationYear || null,
+        domainsOfInterest: Array.isArray(studentData.domainsOfInterest)
+          ? studentData.domainsOfInterest
+          : typeof studentData.domainsOfInterest === "string"
+          ? JSON.parse(studentData.domainsOfInterest || "[]")
+          : [],
+        targetIndustries: Array.isArray(studentData.targetIndustries)
+          ? studentData.targetIndustries
+          : typeof studentData.targetIndustries === "string"
+          ? JSON.parse(studentData.targetIndustries || "[]")
+          : [],
+        resumeUrl: studentData.resumeUrl || "",
+        needsMentor: studentData.needsMentor || false,
+        // isCMISRegistered: studentData.isRegistered || false,
+        isRegistered: studentData.isRegistered, // If they can login, they're registered
+        mentor: undefined, // Not in database, can be fetched separately if needed
+        activityLog: [], // Not in database, can be fetched separately if needed
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(mappedUser));
+      return true;
+    } catch (error) {
+      console.error("Login error:", error);
+      return false;
+    }
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
       const success = await login(email, password);
       if (success) {
-        router.push('/dashboard');
+        router.push("/dashboard");
       } else {
-        setError('Invalid email or password');
+        setError("Invalid email or password");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -38,7 +92,9 @@ export default function LoginPage() {
           {/* Logo and Header */}
           <div className="text-center mb-8">
             <div className="mb-4">
-              <h1 className="text-3xl font-bold text-maroon-500">CMIS Portal</h1>
+              <h1 className="text-3xl font-bold text-maroon-500">
+                CMIS Portal
+              </h1>
               <p className="text-sm text-gray-600 mt-2">Mays Business School</p>
               <p className="text-xs text-gray-500">Texas A&M University</p>
             </div>
@@ -53,12 +109,14 @@ export default function LoginPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email Address
               </label>
               <input
                 id="email"
-                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -69,7 +127,10 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Password
               </label>
               <input
@@ -105,24 +166,15 @@ export default function LoginPage() {
               disabled={isLoading}
               className="w-full bg-maroon-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-maroon-600 focus:outline-none focus:ring-2 focus:ring-maroon-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? "Signing in..." : "Sign In"}
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-xs text-center text-gray-500 mb-3">Demo Credentials:</p>
-            <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-600 space-y-1">
-              <p><strong>Email:</strong> john.smith@tamu.edu</p>
-              <p><strong>Password:</strong> password123</p>
-            </div>
-          </div>
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-600 mt-6">
+            © 2025 Mays Business School. All rights reserved.
+          </p>
         </div>
-
-        {/* Footer */}
-        <p className="text-center text-sm text-gray-600 mt-6">
-          © 2025 Mays Business School. All rights reserved.
-        </p>
       </div>
     </div>
   );

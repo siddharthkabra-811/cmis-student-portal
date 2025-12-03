@@ -1,34 +1,29 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { useNotifications } from '@/lib/notification-context';
-import Navigation from '@/components/Navigation';
-import Image from 'next/image';
-import { dummyEvents } from '@/lib/data';
-import { Event } from '@/lib/types';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { useNotifications } from "@/lib/notification-context";
+import Navigation from "@/components/Navigation";
+import Image from "next/image";
+import { dummyEvents } from "@/lib/data";
+import { Event } from "@/lib/types";
 
 export default function EventDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
   const { addNotification } = useNotifications();
   const [event, setEvent] = useState<Event | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/');
-      return;
-    }
-
-    const foundEvent = dummyEvents.find(e => e.id === params.id);
+    const foundEvent = dummyEvents.find((e) => e.id === params.id);
     if (foundEvent) {
       setEvent(foundEvent);
-      setIsRegistered(foundEvent.attendees.includes(user?.id || ''));
+      setIsRegistered(foundEvent.attendees.includes(user?.id || ""));
     }
-  }, [params.id, isAuthenticated, user, router]);
+  }, [params.id, user, router]);
 
   const handleRegister = () => {
     if (!user || !event) return;
@@ -38,18 +33,20 @@ export default function EventDetailPage() {
 
     addNotification({
       userId: user.id,
-      type: 'event_registration',
-      title: 'Registration Confirmed',
-      message: `You're registered for ${event.title} on ${new Date(event.date).toLocaleDateString()}.`,
+      type: "event_registration",
+      title: "Registration Confirmed",
+      message: `You're registered for ${event.title} on ${new Date(
+        event.date
+      ).toLocaleDateString()}.`,
       actionUrl: `/events/${event.id}`,
-      actionText: 'View Event',
-      icon: '✅',
+      actionText: "View Event",
+      icon: "✅",
     });
 
     alert(`Successfully registered for ${event.title}!`);
   };
 
-  if (!isAuthenticated || !event) return null;
+  if (!event) return null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -61,8 +58,18 @@ export default function EventDetailPage() {
           onClick={() => router.back()}
           className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition"
         >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Back to Events
         </button>
@@ -91,37 +98,74 @@ export default function EventDetailPage() {
                   key={tag}
                   className="px-3 py-1 bg-maroon-50 text-maroon-700 text-sm rounded-full font-medium"
                 >
-                  {tag.replace(/_/g, ' ')}
+                  {tag.replace(/_/g, " ")}
                 </span>
               ))}
             </div>
 
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {event.title}
+            </h1>
 
             <div className="flex flex-wrap gap-6 text-gray-600">
               <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
                 </svg>
-                {new Date(event.date).toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric'
+                {new Date(event.date).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
                 })}
               </div>
 
               <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 {event.time}
               </div>
 
               <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
                 {event.location}
               </div>
@@ -130,8 +174,12 @@ export default function EventDetailPage() {
 
           {/* Description */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Event</h2>
-            <p className="text-gray-700 leading-relaxed">{event.fullDescription}</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              About This Event
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              {event.fullDescription}
+            </p>
           </div>
 
           {/* Agenda */}
@@ -152,17 +200,26 @@ export default function EventDetailPage() {
           {/* Speakers */}
           {event.speakers && event.speakers.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Speakers</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Speakers
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {event.speakers.map((speaker, index) => (
-                  <div key={index} className="flex items-start p-4 border border-gray-200 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-start p-4 border border-gray-200 rounded-lg"
+                  >
                     <div className="w-12 h-12 bg-maroon-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
                       {speaker.name.charAt(0)}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{speaker.name}</h3>
+                      <h3 className="font-semibold text-gray-900">
+                        {speaker.name}
+                      </h3>
                       <p className="text-sm text-gray-600">{speaker.title}</p>
-                      <p className="text-sm text-maroon-600">{speaker.company}</p>
+                      <p className="text-sm text-maroon-600">
+                        {speaker.company}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -176,10 +233,14 @@ export default function EventDetailPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600 mb-1">
-                    {event.attendees.length} {event.attendees.length === 1 ? 'person' : 'people'} registered
+                    {event.attendees.length}{" "}
+                    {event.attendees.length === 1 ? "person" : "people"}{" "}
+                    registered
                   </p>
                   {isRegistered && (
-                    <p className="text-green-600 font-medium">✓ You&apos;re registered for this event</p>
+                    <p className="text-green-600 font-medium">
+                      ✓ You&apos;re registered for this event
+                    </p>
                   )}
                 </div>
                 <button
@@ -187,11 +248,11 @@ export default function EventDetailPage() {
                   disabled={isRegistered}
                   className={`px-8 py-3 rounded-lg font-semibold transition ${
                     isRegistered
-                      ? 'bg-green-100 text-green-700 cursor-default'
-                      : 'bg-maroon-500 text-white hover:bg-maroon-600'
+                      ? "bg-green-100 text-green-700 cursor-default"
+                      : "bg-maroon-500 text-white hover:bg-maroon-600"
                   }`}
                 >
-                  {isRegistered ? '✓ Registered' : 'Register for Event'}
+                  {isRegistered ? "✓ Registered" : "Register for Event"}
                 </button>
               </div>
             </div>
