@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get n8n webhook URL from environment variables
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
+    const n8nWebhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL;
 
     if (!n8nWebhookUrl) {
       console.error('N8N_WEBHOOK_URL is not configured in environment variables');

@@ -6,7 +6,13 @@ import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
 const degreeTypes = ["Bachelors", "Masters"];
-const academicLevels = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
+const academicLevels = [
+  "Freshman",
+  "Sophomore",
+  "Junior",
+  "Senior",
+  "Graduate",
+];
 const availableDomains = [
   "Data Analytics",
   "Business Intelligence",
@@ -90,8 +96,17 @@ export default function RegisterPage() {
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
-
+      try {
+        await fetch("/api/webhook/n8n", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ student_id: data?.student?.id }),
+        });
+      } catch (err) {
+        console.error("Error triggering n8n webhook:", err);
+      }
       toast.success("Registration successful!");
+
       setTimeout(() => {
         router.push("/profile");
       }, 1500);
