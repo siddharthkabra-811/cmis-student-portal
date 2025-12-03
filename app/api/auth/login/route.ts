@@ -111,6 +111,11 @@ export async function POST(request: NextRequest) {
       return [];
     };
 
+    // Convert resumeUrl to array format
+    const resumeUrlArray = student.resume_path 
+      ? [student.resume_path] 
+      : [];
+
     // Return student data (in production, you might want to generate a JWT token here)
     return NextResponse.json({
       success: true,
@@ -126,7 +131,7 @@ export async function POST(request: NextRequest) {
         needsMentor: student.need_mentorship || false,
         domainsOfInterest: parseJsonField(student.domain_interests),
         targetIndustries: parseJsonField(student.target_industries),
-        resumeUrl: student.resume_path || '',
+        resumeUrl: resumeUrlArray, // Return as array
         resumePathKey: student.resume_path_key || '',
         profileSummary: student.profile_summary || '',
         linkedinUrl: student.linkedin_url || '',

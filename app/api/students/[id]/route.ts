@@ -75,6 +75,11 @@ export async function GET(
       return [];
     };
 
+    // Convert resumeUrl to array format
+    const resumeUrlArray = (resumeUrl || student.resume_path) 
+      ? [resumeUrl || student.resume_path] 
+      : [];
+
     return NextResponse.json({
       success: true,
       student: {
@@ -89,7 +94,7 @@ export async function GET(
         needsMentor: student.need_mentorship,
         domainsOfInterest: parseJsonField(student.domain_interests),
         targetIndustries: parseJsonField(student.target_industries),
-        resumeUrl: resumeUrl || student.resume_path || '',
+        resumeUrl: resumeUrlArray, // Return as array
         resumePathKey: student.resume_path_key || '',
         profileSummary: student.profile_summary || '',
         linkedinUrl: student.linkedin_url || '',
@@ -389,6 +394,11 @@ async function updateStudent(request: NextRequest, studentId: string) {
       return [];
     };
 
+    // Convert resumeUrl to array format
+    const resumeUrlArray = (finalResumeUrl || student.resume_path) 
+      ? [finalResumeUrl || student.resume_path] 
+      : [];
+
     return NextResponse.json({
       success: true,
       message: 'Student updated successfully',
@@ -404,7 +414,7 @@ async function updateStudent(request: NextRequest, studentId: string) {
         needsMentor: student.need_mentorship,
         domainsOfInterest: parseJsonField(student.domain_interests),
         targetIndustries: parseJsonField(student.target_industries),
-        resumeUrl: finalResumeUrl || student.resume_path || '',
+        resumeUrl: resumeUrlArray, // Return as array
         resumePathKey: student.resume_path_key || '',
         profileSummary: student.profile_summary || '',
         linkedinUrl: student.linkedin_url || '',
