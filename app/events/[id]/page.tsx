@@ -6,8 +6,9 @@ import { useAuth } from "@/lib/auth-context";
 import { useNotifications } from "@/lib/notification-context";
 import Navigation from "@/components/Navigation";
 import Image from "next/image";
-import { dummyEvents } from "@/lib/data";
 import { Event } from "@/lib/types";
+import { fetchEventById, mapApiEventToEvent } from "@/lib/api/events";
+import { toast } from "sonner";
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -16,14 +17,36 @@ export default function EventDetailPage() {
   const { addNotification } = useNotifications();
   const [event, setEvent] = useState<Event | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const foundEvent = dummyEvents.find((e) => e.id === params.id);
-    if (foundEvent) {
-      setEvent(foundEvent);
-      setIsRegistered(foundEvent.attendees.includes(user?.id || ""));
+    async function loadEvent() {
+      if (!params.id) return;
+
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetchEventById(params.id as string);
+        
+        if (response.success && response.event) {
+          const mappedEvent = mapApiEventToEvent(response.event);
+          setEvent(mappedEvent);
+          setIsRegistered(mappedEvent.attendees.includes(user?.id || ""));
+        } else {
+          throw new Error("Event not found");
+        }
+      } catch (err: any) {
+        console.error("Error loading event:", err);
+        setError(err.message || "Failed to load event");
+        toast.error("Failed to load event. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }, [params.id, user, router]);
+
+    loadEvent();
+  }, [params.id, user]);
 
   const handleRegister = () => {
     if (!user || !event) return;
@@ -46,7 +69,61 @@ export default function EventDetailPage() {
     alert(`Successfully registered for ${event.title}!`);
   };
 
-  if (!event) return null;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="h-8 bg-gray-200 rounded w-24 mb-6 animate-pulse"></div>
+          <div className="h-96 bg-gray-200 rounded-xl mb-8 animate-pulse"></div>
+          <div className="bg-white rounded-xl shadow-md p-8">
+            <div className="h-8 bg-gray-200 rounded w-3/4 mb-4 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error || !event) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition"
+          >
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Events
+          </button>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+            <p className="text-red-800 font-semibold mb-2">Error loading event</p>
+            <p className="text-red-600">{error || "Event not found"}</p>
+            <button
+              onClick={() => router.push("/events")}
+              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            >
+              Go to Events
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

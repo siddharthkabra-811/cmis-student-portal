@@ -2,19 +2,97 @@
 
 import Navigation from "@/components/Navigation";
 import { useAuth } from "@/lib/auth-context";
-import { dummyEvents } from "@/lib/data";
 import { useNotifications } from "@/lib/notification-context";
 import { Event } from "@/lib/types";
+import { fetchEvents, mapApiEventToEvent } from "@/lib/api/events";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function EventsPage() {
-  const [events, setEvents] = useState<Event[]>(dummyEvents);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadEvents() {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetchEvents({ limit: 100 }); // Fetch all events
+        
+        if (response.success && response.events) {
+          const mappedEvents = response.events.map(mapApiEventToEvent);
+          setEvents(mappedEvents);
+        } else {
+          throw new Error("Failed to load events");
+        }
+      } catch (err: any) {
+        console.error("Error loading events:", err);
+        setError(err.message || "Failed to load events");
+        toast.error("Failed to load events. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadEvents();
+  }, []);
 
   const upcomingEvents = events.filter((e) => !e.isPast);
   const pastEvents = events.filter((e) => e.isPast);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-8">
+            <div className="h-8 bg-gray-200 rounded w-32 mb-2 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 rounded w-64 animate-pulse"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden">
+                <div className="h-48 bg-gray-200 animate-pulse"></div>
+                <div className="p-6">
+                  <div className="h-4 bg-gray-200 rounded w-24 mb-2 animate-pulse"></div>
+                  <div className="h-6 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Events</h1>
+            <p className="text-gray-600">Discover and register for CMIS events</p>
+          </div>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+            <p className="text-red-800 font-semibold mb-2">Error loading events</p>
+            <p className="text-red-600">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            >
+              Retry
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -51,6 +129,11 @@ export default function EventsPage() {
               <EventCard key={event.id} event={event} isPast />
             ))}
           </div>
+          {pastEvents.length === 0 && (
+            <p className="text-gray-500 text-center py-8">
+              No past events.
+            </p>
+          )}
         </section>
       </main>
     </div>
