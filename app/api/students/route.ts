@@ -58,6 +58,11 @@ export async function GET(request: NextRequest) {
         }
       }
 
+      // Convert resumeUrl to array format
+      const resumeUrlArray = (resumeUrl || student.resume_path) 
+        ? [resumeUrl || student.resume_path] 
+        : [];
+
       return NextResponse.json({
         success: true,
         student: {
@@ -72,7 +77,7 @@ export async function GET(request: NextRequest) {
           needsMentor: student.need_mentorship,
           domainsOfInterest: parseJsonField(student.domain_interests),
           targetIndustries: parseJsonField(student.target_industries),
-          resumeUrl: resumeUrl || student.resume_path || '',
+          resumeUrl: resumeUrlArray, // Return as array
           resumePathKey: student.resume_path_key || '',
           profileSummary: student.profile_summary || '',
           linkedinUrl: student.linkedin_url || '',
