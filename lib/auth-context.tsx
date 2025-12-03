@@ -24,15 +24,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     // Check for existing session on mount
-    const sessionUser = localStorage.getItem("currentUser");
-    if (sessionUser) {
-      try {
-        const parsedUser = JSON.parse(sessionUser);
-        setUser(parsedUser);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Failed to parse user session:", error);
-        localStorage.removeItem("currentUser");
+    if (typeof window !== 'undefined') {
+      const sessionUser = localStorage.getItem("currentUser");
+      if (sessionUser) {
+        try {
+          const parsedUser = JSON.parse(sessionUser);
+          setUser(parsedUser);
+          setIsAuthenticated(true);
+        } catch (error) {
+          console.error("Failed to parse user session:", error);
+          localStorage.removeItem("currentUser");
+        }
       }
     }
   }, []);
@@ -40,15 +42,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem("currentUser");
-    localStorage.clear();
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("currentUser");
+      localStorage.clear();
+    }
   };
 
   const updateUser = (userData: Partial<User>) => {
     if (user) {
       const updatedUser = { ...user, ...userData };
       setUser(updatedUser);
-      localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+      }
       // Note: In a production app, you would also call an API to update the database
     }
   };

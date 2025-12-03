@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { getPresignedUrl } from '@/lib/s3';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/events
  * 
@@ -21,7 +23,7 @@ import { getPresignedUrl } from '@/lib/s3';
  */
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '50');
     const upcomingOnly = searchParams.get('upcoming') === 'true';

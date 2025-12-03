@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Webhook endpoint to trigger n8n pipeline
  * 
@@ -106,7 +108,7 @@ export async function POST(request: NextRequest) {
 
 // Also support GET for testing (optional)
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
+  const searchParams = request.nextUrl.searchParams;
   const student_id = searchParams.get('student_id');
 
   if (!student_id) {

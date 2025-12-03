@@ -59,7 +59,9 @@ export default function LoginPage() {
         activityLog: [], // Not in database, can be fetched separately if needed
       };
 
-      localStorage.setItem("currentUser", JSON.stringify(mappedUser));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("currentUser", JSON.stringify(mappedUser));
+      }
       return true;
     } catch (error) {
       console.error("Login error:", error);

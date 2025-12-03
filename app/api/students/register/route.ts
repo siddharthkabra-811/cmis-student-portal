@@ -3,6 +3,8 @@ import { query } from '@/lib/db';
 import { uploadToS3, deleteFromS3 } from '@/lib/s3';
 import bcrypt from 'bcryptjs';
 
+export const dynamic = 'force-dynamic';
+
 // Helper to parse form data with file upload
 async function parseFormData(request: NextRequest) {
   const formData = await request.formData();

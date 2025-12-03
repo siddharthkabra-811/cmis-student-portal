@@ -7,9 +7,16 @@ import React from "react";
 
 export default function DashboardPage() {
   // const { user, isAuthenticated } = useAuth();
-  const user = localStorage.getItem("currentUser")
-    ? JSON.parse(localStorage.getItem("currentUser")!)
-    : {};
+  const [user, setUser] = React.useState<any>({});
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        setUser(JSON.parse(currentUser));
+      }
+    }
+  }, []);
 
   const featuredContent = [
     {

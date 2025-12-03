@@ -2,7 +2,7 @@
 
 import Navigation from "@/components/Navigation";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { toast } from "sonner";
 
 const degreeTypes = ["Bachelors", "Masters"];
@@ -37,11 +37,10 @@ const availableIndustries = [
 export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const userDetails = localStorage.getItem("currentUser");
   const [formData, setFormData] = useState({
-    name: userDetails ? JSON.parse(userDetails).name : "",
-    uin: userDetails ? JSON.parse(userDetails).uin : "",
-    email: userDetails ? JSON.parse(userDetails).email : "",
+    name: "",
+    uin: "",
+    email: "",
     linkedinUrl: "",
     degreeType: "" as any,
     academicLevel: "" as any,
@@ -53,6 +52,21 @@ export default function RegisterPage() {
   });
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userDetails = localStorage.getItem("currentUser");
+      if (userDetails) {
+        const user = JSON.parse(userDetails);
+        setFormData(prev => ({
+          ...prev,
+          name: user.name || "",
+          uin: user.uin || "",
+          email: user.email || "",
+        }));
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -92,7 +106,9 @@ export default function RegisterPage() {
       });
 
       const data = await response.json();
-      localStorage.setItem("currentUser", JSON.stringify(data?.student));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("currentUser", JSON.stringify(data?.student));
+      }
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
