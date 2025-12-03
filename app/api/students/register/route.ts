@@ -282,6 +282,11 @@ export async function POST(request: NextRequest) {
     };
 
     // Return student data
+    // Convert resume_path to array format
+    const resumePathArray = student.resume_path 
+      ? [student.resume_path] 
+      : [];
+
     return NextResponse.json({
       success: true,
       message: 'Student registered successfully',
@@ -297,7 +302,7 @@ export async function POST(request: NextRequest) {
         needsMentor: student.need_mentorship,
         domainsOfInterest: parseJsonField(student.domain_interests),
         targetIndustries: parseJsonField(student.target_industries),
-        resumeUrl: student.resume_path || '',
+        resumeUrl: resumePathArray, // Return as array
         resumePathKey: student.resume_path_key || '',
         profileSummary: student.profile_summary || '',
         linkedinUrl: student.linkedin_url || '',
