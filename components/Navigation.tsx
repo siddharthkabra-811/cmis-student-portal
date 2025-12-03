@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { useNotifications } from '@/lib/notification-context';
-import { useState, useRef, useEffect } from 'react';
+import { useNotifications } from "@/lib/notification-context";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const user = localStorage.getItem("currentUser")
+    ? JSON.parse(localStorage.getItem("currentUser")!)
+    : null;
   const { unreadCount } = useNotifications();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -21,19 +22,20 @@ export default function Navigation() {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
-    logout();
-    router.push('/');
+    localStorage.removeItem("currentUser");
+    localStorage.clear();
+    router.push("/");
   };
 
   const navLinks = [
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/events', label: 'Events' },
-    { href: '/profile', label: 'Profile' },
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "/events", label: "Events" },
+    { href: "/profile", label: "Profile" },
   ];
 
   return (
@@ -58,8 +60,8 @@ export default function Navigation() {
                 href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                   pathname === link.href
-                    ? 'bg-maroon-50 text-maroon-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? "bg-maroon-50 text-maroon-700"
+                    : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
                 {link.label}
@@ -103,14 +105,16 @@ export default function Navigation() {
                 aria-label="User menu"
               >
                 <div className="w-8 h-8 rounded-full bg-maroon-500 flex items-center justify-center text-white font-semibold">
-                  {user?.fullName.charAt(0).toUpperCase()}
+                  {user?.name?.charAt(0).toUpperCase()}
                 </div>
                 <div className="hidden sm:block text-left">
-                  <p className="text-sm font-medium text-gray-900">{user?.fullName}</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {user?.name}
+                  </p>
                 </div>
                 <svg
                   className={`w-4 h-4 text-gray-600 transition ${
-                    isUserMenuOpen ? 'rotate-180' : ''
+                    isUserMenuOpen ? "rotate-180" : ""
                   }`}
                   fill="none"
                   stroke="currentColor"
@@ -129,8 +133,12 @@ export default function Navigation() {
               {isUserMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
                   <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-medium text-gray-900">{user?.fullName}</p>
-                    <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {user?.fullName}
+                    </p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {user?.email}
+                    </p>
                   </div>
                   <Link
                     href="/profile"
@@ -171,8 +179,8 @@ export default function Navigation() {
               href={link.href}
               className={`inline-block px-3 py-1.5 rounded-lg text-sm font-medium transition ${
                 pathname === link.href
-                  ? 'bg-maroon-50 text-maroon-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? "bg-maroon-50 text-maroon-700"
+                  : "text-gray-700 hover:bg-gray-100"
               }`}
             >
               {link.label}

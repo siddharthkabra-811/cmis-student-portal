@@ -1,3 +1,13 @@
+export interface Resume {
+  id: string;
+  fileName: string;
+  fileSize: number;
+  uploadDate: string;
+  s3Key: string;
+  url: string;
+  isPrimary: boolean;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -12,6 +22,7 @@ export interface User {
   domainsOfInterest: string[];
   targetIndustries: string[];
   resumeUrl: string;
+  resumes?: Resume[];
   needsMentor: boolean;
   isRegistered: boolean;
   mentor?: {
@@ -20,6 +31,7 @@ export interface User {
     company: string;
   };
   activityLog: ActivityLogEntry[];
+  isCMISRegistered?: boolean;
 }
 
 export interface ActivityLogEntry {
