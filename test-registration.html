@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Registration API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .array-input {
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #0070f3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0051cc;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Registration API</h1>
+        <p><strong>Endpoint:</strong> <code>POST /api/students/register</code></p>
+        
+        <form id="registrationForm">
+            <h3>Required Fields</h3>
+            
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required value="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label>UIN <span class="required">*</span></label>
+                <input type="text" id="uin" name="uin" required value="123456789">
+            </div>
+
+            <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required value="john.doe@tamu.edu">
+            </div>
+
+            <div class="form-group">
+                <label>Degree Type <span class="required">*</span></label>
+                <select id="degreeType" name="degreeType" required>
+                    <option value="MS">MS</option>
+                    <option value="PhD">PhD</option>
+                    <option value="MBA">MBA</option>
+                    <option value="BS">BS</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Academic Level <span class="required">*</span></label>
+                <select id="academicLevel" name="academicLevel" required>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Graduation Year <span class="required">*</span></label>
+                <input type="text" id="graduationYear" name="graduationYear" required value="2025">
+            </div>
+
+            <div class="form-group">
+                <label>Domains of Interest <span class="required">*</span></label>
+                <input type="text" id="domainsOfInterest" name="domainsOfInterest" class="array-input" 
+                       required value='["AI", "Machine Learning"]'
+                       placeholder='["AI", "ML"]'>
+                <div class="help-text">Enter as JSON array: ["AI", "ML"]</div>
+            </div>
+
+            <div class="form-group">
+                <label>Target Industries <span class="required">*</span></label>
+                <input type="text" id="targetIndustries" name="targetIndustries" class="array-input" 
+                       required value='["Technology"]'
+                       placeholder='["Technology", "Consulting"]'>
+                <div class="help-text">Enter as JSON array: ["Technology"]</div>
+            </div>
+
+            <div class="form-group">
+                <label>Needs Mentor <span class="required">*</span></label>
+                <select id="needsMentor" name="needsMentor" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <h3>Optional Fields</h3>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" name="password" value="testpassword123">
+            </div>
+
+            <div class="form-group">
+                <label>Program of Study</label>
+                <input type="text" id="programOfStudy" name="programOfStudy" value="Computer Science">
+            </div>
+
+            <div class="form-group">
+                <label>Profile Summary</label>
+                <textarea id="profileSummary" name="profileSummary">Experienced software engineer with expertise in AI and machine learning.</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>LinkedIn URL</label>
+                <input type="text" id="linkedinUrl" name="linkedinUrl" value="https://linkedin.com/in/johndoe">
+            </div>
+
+            <div class="form-group">
+                <label>GPA</label>
+                <input type="text" id="gpa" name="gpa" value="3.8">
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="text" id="skills" name="skills" class="array-input" 
+                       value='["Python", "JavaScript", "React"]'
+                       placeholder='["Python", "JavaScript"]'>
+                <div class="help-text">Enter as JSON array: ["Python", "JavaScript"]</div>
+            </div>
+
+            <div class="form-group">
+                <label>Resume (PDF)</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                <div class="help-text">Optional: Upload a resume file</div>
+            </div>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'Sending request...';
+            responseDiv.className = 'response';
+            
+            try {
+                // Create FormData
+                const formData = new FormData();
+                
+                // Required fields
+                formData.append('fullName', document.getElementById('fullName').value);
+                formData.append('uin', document.getElementById('uin').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('degreeType', document.getElementById('degreeType').value);
+                formData.append('academicLevel', document.getElementById('academicLevel').value);
+                formData.append('graduationYear', document.getElementById('graduationYear').value);
+                
+                // Array fields - Parse JSON and stringify again to ensure correct format
+                const domainsInput = document.getElementById('domainsOfInterest').value.trim();
+                const domainsArray = JSON.parse(domainsInput);
+                formData.append('domainsOfInterest', JSON.stringify(domainsArray));
+                
+                const industriesInput = document.getElementById('targetIndustries').value.trim();
+                const industriesArray = JSON.parse(industriesInput);
+                formData.append('targetIndustries', JSON.stringify(industriesArray));
+                
+                formData.append('needsMentor', document.getElementById('needsMentor').value);
+                
+                // Optional fields
+                const password = document.getElementById('password').value;
+                if (password) {
+                    formData.append('password', password);
+                }
+                
+                const programOfStudy = document.getElementById('programOfStudy').value;
+                if (programOfStudy) {
+                    formData.append('programOfStudy', programOfStudy);
+                }
+                
+                const profileSummary = document.getElementById('profileSummary').value;
+                if (profileSummary) {
+                    formData.append('profileSummary', profileSummary);
+                }
+                
+                const linkedinUrl = document.getElementById('linkedinUrl').value;
+                if (linkedinUrl) {
+                    formData.append('linkedinUrl', linkedinUrl);
+                }
+                
+                const gpa = document.getElementById('gpa').value;
+                if (gpa) {
+                    formData.append('gpa', gpa);
+                }
+                
+                const skillsInput = document.getElementById('skills').value.trim();
+                if (skillsInput) {
+                    const skillsArray = JSON.parse(skillsInput);
+                    formData.append('skills', JSON.stringify(skillsArray));
+                }
+                
+                // Resume file
+                const resumeFile = document.getElementById('resume').files[0];
+                if (resumeFile) {
+                    formData.append('resume', resumeFile);
+                }
+                
+                // Send request
+                const response = await fetch('/api/students/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                // Display response
+                if (response.ok && result.success) {
+                    responseDiv.className = 'response success';
+                    responseDiv.innerHTML = `✅ Success!\n\n${JSON.stringify(result, null, 2)}`;
+                } else {
+                    responseDiv.className = 'response error';
+                    responseDiv.innerHTML = `❌ Error (${response.status})\n\n${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                responseDiv.className = 'response error';
+                responseDiv.innerHTML = `❌ Error: ${error.message}\n\n${error.stack}`;
+            }
+        });
+    </script>
+</body>
+</html>
+

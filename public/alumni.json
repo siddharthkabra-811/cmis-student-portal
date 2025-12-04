@@ -1,0 +1,771 @@
+[
+  {
+    "id": "alumni_blaine_bryant",
+    "name": "Blaine Bryant",
+    "gradYear": 1994,
+    "role": "SVP - Global CIO",
+    "company": "Lightera",
+    "headshot": "/alumni-photos/blaine-bryant.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Accelya-Logo.png",
+    "quote": "Effective IT leadership is built on strong governance, clear strategy, and delivering measurable value to the business.",
+    "fullStory": "Blaine Bryant is an accomplished IT executive with more than 25 years of experience leading enterprise technology operations and service-management transformations. His career spans global infrastructure operations, banking and financial services IT, and large-scale enterprise governance programs.\n\nBlaine spent over a decade at BMC Software, where he led IT service governance, software-asset management, financial oversight for IT operations, and major digital-transformation initiatives. He became known for driving measurable savings, improving service maturity, and aligning IT operations with business strategy.\n\nIn his most recent role, Blaine joined Accelya Group as Global CIO, where he oversees enterprise technology strategy, IT operations, cybersecurity, and digital transformation efforts across the organization. His leadership emphasizes governance, cost optimization, risk management, and building high-performing IT teams.",
+    "skills": [
+      "IT Service Management (ITSM)",
+      "Enterprise IT Governance",
+      "Software-Asset Management (SAM)",
+      "IT Financial Management",
+      "Cloud Governance & Optimization",
+      "Cybersecurity & Compliance",
+      "Enterprise Architecture (TOGAF 9 Certified)",
+      "Project & Program Management (PMP)",
+      "Agile, Lean, DevOps & Value-Stream Management",
+      "Executive Leadership & Strategy"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2000,
+        "title": "Early Career - IT Operations Leadership",
+        "description": "Led global infrastructure operations, banking IT operations, and mortgage-platform technology services."
+      },
+      {
+        "year": 2010,
+        "title": "Senior Director, IS&T Services Governance – BMC Software",
+        "description": "Oversaw IT service management, governance, software-asset management, and IT financial strategy. Delivered multi-million-dollar cost-optimization outcomes."
+      },
+      {
+        "year": 2013,
+        "title": "Completed CIO Institute Program",
+        "description": "Professional executive training focused on IT leadership and enterprise strategy."
+      },
+      {
+        "year": 2016,
+        "title": "Industry Speaker",
+        "description": "Presented BMC's enterprise software-asset-management transformation at major ITAM conferences."
+      },
+      {
+        "year": 2025,
+        "title": "Global Chief Information Officer – Accelya Group",
+        "description": "Leads enterprise-wide IT strategy, security, governance, and digital transformation initiatives."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": false,
+    "linkedInUrl": "https://www.linkedin.com/in/blaine-bryant/",
+    "education": [
+      {
+        "institution": "Texas A&M University",
+        "degree": "BBA",
+        "field": "Business Analysis - MIS",
+        "startYear": 1990,
+        "endYear": 1994,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "University of Phoenix",
+        "degree": "MBA",
+        "field": "MIS",
+        "startYear": 2003,
+        "endYear": 2005,
+        "logo": "https://logos-world.net/wp-content/uploads/2021/02/University-of-Phoenix-Logo.png"
+      }
+    ],
+    "experience": [
+      {
+        "company": "Lightera",
+        "title": "SVP - Global CIO",
+        "employmentType": "Full-time",
+        "startDate": "Jan 2025",
+        "endDate": null,
+        "location": "Remote",
+        "description": "Responsible for providing strategic leadership and vision for the company's Information Technology (IT) initiatives. Oversees the development, implementation, and maintenance of the company's global IT infrastructure, systems, security, and policies, ensuring that technology investments align with the company's objectives and drive business growth.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Lightera-Logo.png"
+      },
+      {
+        "company": "Accelya Group",
+        "title": "Global Chief Information Officer & Head of Security",
+        "employmentType": "Full-time",
+        "startDate": "Aug 2022",
+        "endDate": "Jul 2024",
+        "location": "Remote",
+        "description": "Recruited by Vista Consulting Group as a multi-tour Vista Equity portfolio company executive to be Accelya's first CIO. Transformed and consolidated IT and Security operations of multiple acquired companies into a global enterprise IT organization supporting product and technology operations for airlines across a broad service portfolio of travel offer, order, revenue accounting, and settlement services for passenger and cargo traffic.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Accelya-Logo.png"
+      },
+      {
+        "company": "BMC Software",
+        "title": "Senior Director - Enterprise Portfolio Management & IT Service Management",
+        "employmentType": "Full-time",
+        "startDate": "Nov 2011",
+        "endDate": "Aug 2022",
+        "location": "Greater Houston",
+        "description": "Recruited to guide IT teams through digital transformation and cost reduction initiatives. Lead 24-member team and manage $120M budget. Chair IT Advisory Committee comprising 16 VPs across all major business units to prioritize IT capital investments and evaluate enterprise projects portfolio. Oversee multiple IT transformation and business integration initiatives to bolster service levels, financial transparency, project prioritization, and value creation. Responsible for all aspects of IT enterprise portfolio management, IT service management, and IT financial performance for BMC Software.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/BMC-Software-Logo.png"
+      },
+      {
+        "company": "Lender Processing Services (RealEC Technologies)",
+        "title": "Vice President of Technology Operations & Security",
+        "employmentType": "Full-time",
+        "startDate": "Jan 2009",
+        "endDate": "Nov 2011",
+        "location": "Houston, TX",
+        "description": "Hand-selected to steer stabilization and enhancement of SaaS platform servicing 85% of all mortgage lenders. Assembled and led 60+-member IT operations group. Managed $5M budget. Oversaw IT Operations, Customer Success, PMO and Information Security.",
+        "logo": null
+      },
+      {
+        "company": "Franklin Bank",
+        "title": "Senior Vice President - Technology Operations & Security",
+        "employmentType": "Full-time",
+        "startDate": "Apr 2005",
+        "endDate": "Dec 2008",
+        "location": "Greater Houston",
+        "description": "Stepped into newly created role charged with expanding and leading technology operations as bank grew from 18 to 50+ locations in 3 years. Managed 38-member team and a $25M budget. Oversaw end-user services, help desk, data center operations, information security, application support, project management office, and network and telecommunication.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Franklin-Bank-Logo.png"
+      }
+    ]
+  },
+  {
+    "id": "alumni_jeff_richardson",
+    "name": "Jeff Richardson",
+    "gradYear": null,
+    "role": "Chief Technology Officer",
+    "company": "Daniel Stark LLP",
+    "headshot": "/alumni-photos/jeff-richardson.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Daniel-Stark-Logo.png",
+    "quote": "A successful transformation blends the right technology with clear vision, strong leadership, and empowered teams.",
+    "fullStory": "Jeff Richardson is a seasoned technology leader with deep experience driving organizational development through strategic IT advancement. Over decades, he has led complex digital-transformation efforts across corporate, nonprofit, and consulting environments.\n\nJeff began his career in IT leadership positions within regional enterprises — including a key role directing technology for a multi-brand grocery enterprise undergoing ownership transition. He later served as VP / CIO at a service-organization firm, where he oversaw enterprise technology and modernization strategy. Afterwards, he expanded into the nonprofit sector as Senior Product Manager at a global nonprofit, managing enterprise applications and global systems.\n\nIn 2017, Jeff founded B5 Digital Strategy, working as Principal Consultant to help organizations navigate technology growth, digital strategy, and operational transformation. After several years of consulting success, in 2024 he became Chief Technology Officer at Daniel Stark LLP, where he now oversees firm-wide technology strategy, digital operations, and innovation.\n\nJeff is known for guiding cross-functional teams through complex challenges and delivering forward-looking technology solutions that drive measurable impact.",
+    "skills": [
+      "IT Transformation & Modernization",
+      "Digital Strategy & Technology Roadmapping",
+      "Enterprise Leadership & Management",
+      "Product & Application Management",
+      "Cross-Functional Team Leadership",
+      "Systems Implementation & Integration",
+      "Strategic Planning & Organizational Development",
+      "Technology Operations Management",
+      "Global / Enterprise Application Governance"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2005,
+        "title": "Director of IT – Minyard Companies",
+        "description": "Led technology operations for a multi-brand regional grocery enterprise during a period of private-equity ownership transition."
+      },
+      {
+        "year": 2009,
+        "title": "VP / CIO – The CMI Group, Inc.",
+        "description": "Oversaw enterprise technology, digital modernization, and IT operational strategy for a service-organization firm."
+      },
+      {
+        "year": 2011,
+        "title": "Senior Product Manager, Global Applications – Compassion International",
+        "description": "Directed major global applications and leadership/ systems for an international nonprofit's global-scale operations."
+      },
+      {
+        "year": 2017,
+        "title": "Principal – B5 Digital Strategy",
+        "description": "Provided strategic consulting to organizations for digital transformation, systems modernization, and technology operations."
+      },
+      {
+        "year": 2024,
+        "title": "Chief Technology Officer – Daniel Stark LLP",
+        "description": "Leads enterprise IT strategy, cybersecurity, infrastructure, and innovation initiatives across the firm."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": false,
+    "linkedInUrl": "https://www.linkedin.com/in/jeff2richardson/",
+    "education": [
+      {
+        "institution": "Texas A&M University",
+        "degree": "Not Listed",
+        "field": "Not Listed",
+        "startYear": null,
+        "endYear": null,
+        "logo": "/primaryTAM.png"
+      }
+    ],
+    "experience": [
+      {
+        "company": "Daniel Stark LLP",
+        "title": "Chief Technology Officer",
+        "employmentType": "Full-time",
+        "startDate": "2024",
+        "endDate": null,
+        "location": "",
+        "description": "Leads enterprise IT strategy, cybersecurity, infrastructure, and innovation initiatives across the firm.",
+        "logo": null
+      },
+      {
+        "company": "B5 Digital Strategy",
+        "title": "Principal",
+        "employmentType": "Full-time",
+        "startDate": "2017",
+        "endDate": "2024",
+        "location": "",
+        "description": "Provided strategic consulting to organizations for digital transformation, systems modernization, and technology operations.",
+        "logo": null
+      },
+      {
+        "company": "Compassion International",
+        "title": "Senior Product Manager, Global Applications",
+        "employmentType": "Full-time",
+        "startDate": "2011",
+        "endDate": "2017",
+        "location": "",
+        "description": "Directed major global applications and leadership/ systems for an international nonprofit's global-scale operations.",
+        "logo": null
+      },
+      {
+        "company": "The CMI Group, Inc.",
+        "title": "VP / CIO",
+        "employmentType": "Full-time",
+        "startDate": "2009",
+        "endDate": "2011",
+        "location": "",
+        "description": "Oversaw enterprise technology, digital modernization, and IT operational strategy for a service-organization firm.",
+        "logo": null
+      },
+      {
+        "company": "Minyard Companies",
+        "title": "Director of IT",
+        "employmentType": "Full-time",
+        "startDate": "2005",
+        "endDate": "2009",
+        "location": "",
+        "description": "Led technology operations for a multi-brand regional grocery enterprise during a period of private-equity ownership transition.",
+        "logo": null
+      }
+    ]
+  },
+  {
+    "id": "alumni_mahidhar_panyam",
+    "name": "Mahidhar Panyam, FAPM",
+    "gradYear": 2013,
+    "role": "Consultant, Business Transformation",
+    "company": "Dell Technologies",
+    "headshot": "/alumni-photos/mahidhar-panyam.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2020/03/Dell-Logo.png",
+    "quote": "Delivering transformation is about aligning people, processes, and technology to create lasting value for global organizations.",
+    "fullStory": "Mahidhar Panyam is a seasoned program and transformation leader with extensive experience in driving process improvement, system integration, and business transformation initiatives across global enterprises. He is passionate about data exploration and collaborative problem solving, leveraging these skills to streamline operations, reduce costs, and improve customer experiences.\n\nMahidhar began his career at Relativity Technologies in India, developing software proof-of-concepts and training customers on technical tools. He then advanced through leadership roles at Accenture, managing large-scale projects in healthcare and telecom, including global offshore delivery and talent management.\n\nIn 2013, Mahidhar joined Dell Technologies, starting as a Senior Advisor (Intern) in Commercial Sales Operations. Over the years, he progressed to Senior Advisor for Global Sales Operations, implementing cost-saving initiatives, improving cash-flow processes, and enhancing customer experience. Since 2016, he has served as a Consultant in the Business Transformation Office, delivering operational capabilities, managing cross-functional projects, guiding solution development, and ensuring successful adoption of new processes and systems.",
+    "skills": [
+      "Program & Project Management",
+      "Business Transformation & Process Improvement",
+      "System Integration",
+      "Cross-functional Team Leadership",
+      "Operational Excellence & Cash-flow Optimization",
+      "Global Delivery & Offshore Management",
+      "Data Analysis & Process Automation",
+      "Stakeholder Management & Solution Implementation"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2006,
+        "title": "Senior Modernization Consultant – Relativity Technologies (India)",
+        "description": "Developed software proof-of-concepts and trained customers on product usage and technical solutions."
+      },
+      {
+        "year": 2006,
+        "title": "Associate Manager / Manager – Accenture",
+        "description": "Managed testing and offshore delivery projects in healthcare and telecom, with budgets up to $2M, leading global teams and improving operational efficiency."
+      },
+      {
+        "year": 2013,
+        "title": "Senior Advisor (Intern) – Dell Technologies",
+        "description": "Improved customer satisfaction and operational productivity for service products through process optimization."
+      },
+      {
+        "year": 2014,
+        "title": "Senior Advisor (Global Sales Operations) – Dell Technologies",
+        "description": "Delivered cost-saving initiatives, improved cash flow processes, and enhanced customer experience."
+      },
+      {
+        "year": 2016,
+        "title": "Consultant, Transformation Program Manager (Business Transformation Office) – Dell Technologies",
+        "description": "Leads global business transformation initiatives, develops user cases, guides solution development, conducts user acceptance testing, and drives adoption of operational capabilities across Sales, Finance, Services, and Manufacturing functions."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": false,
+    "linkedInUrl": "https://www.linkedin.com/in/mahidharpanyam/",
+    "education": [
+      {
+        "institution": "Texas A&M University – Mays Business School",
+        "degree": "MBA",
+        "field": "Supply Chain Management",
+        "startYear": 2012,
+        "endYear": 2013,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "National Institute of Technology Calicut",
+        "degree": "M.Tech",
+        "field": "Power Electronics",
+        "startYear": 1996,
+        "endYear": 1998,
+        "logo": null
+      }
+    ],
+    "experience": [
+      {
+        "company": "Dell Technologies",
+        "title": "Consultant, Transformation Program Manager (Business Transformation Office)",
+        "employmentType": "Full-time",
+        "startDate": "Mar 2016",
+        "endDate": null,
+        "location": "",
+        "description": "Leads global business transformation initiatives, develops user cases, guides solution development, conducts user acceptance testing, and drives adoption of operational capabilities across Sales, Finance, Services, and Manufacturing functions.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Dell-Logo.png"
+      },
+      {
+        "company": "Dell Technologies",
+        "title": "Senior Advisor (Global Sales Operations)",
+        "employmentType": "Full-time",
+        "startDate": "Feb 2014",
+        "endDate": "Feb 2016",
+        "location": "",
+        "description": "Delivered cost-saving initiatives, improved cash flow processes, and enhanced customer experience.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Dell-Logo.png"
+      },
+      {
+        "company": "Dell Technologies",
+        "title": "Senior Advisor (Intern)",
+        "employmentType": "Internship",
+        "startDate": "May 2013",
+        "endDate": "Aug 2013",
+        "location": "",
+        "description": "Improved customer satisfaction and operational productivity for service products through process optimization.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Dell-Logo.png"
+      },
+      {
+        "company": "Accenture",
+        "title": "Associate Manager / Manager",
+        "employmentType": "Full-time",
+        "startDate": "Dec 2006",
+        "endDate": "Jul 2012",
+        "location": "",
+        "description": "Managed testing and offshore delivery projects in healthcare and telecom, with budgets up to $2M, leading global teams and improving operational efficiency.",
+        "logo": "https://logos-world.net/wp-content/uploads/2017/05/Accenture-Logo.png"
+      },
+      {
+        "company": "Relativity Technologies (India)",
+        "title": "Senior Modernization Consultant",
+        "employmentType": "Full-time",
+        "startDate": "Aug 2006",
+        "endDate": "Nov 2006",
+        "location": "India",
+        "description": "Developed software proof-of-concepts and trained customers on product usage and technical solutions.",
+        "logo": null
+      }
+    ]
+  },
+  {
+    "id": "alumni_divyesh_batra",
+    "name": "Divyesh Batra",
+    "gradYear": 2019,
+    "role": "Staff Data Engineer",
+    "company": "Visa",
+    "headshot": "/alumni-photos/divyesh-batra.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png",
+    "quote": "Data-driven security requires precision, collaboration, and a proactive approach across all layers of technology.",
+    "fullStory": "Divyesh Batra is an experienced data engineer specializing in global information security and data analytics within the financial services sector. He currently serves as a Staff Data Engineer at Visa, where he designs and manages complex data pipelines to track vulnerabilities, technical security requirements, and container security across Visa and acquired entities.\n\nDivyesh's career began in engineering and web development roles at Texas A&M Engineering Experiment Station (TEES) and GATE Energy, where he built web applications, automated workflows, and implemented OCR-based data processing solutions. He later worked as a Data Engineer at Wood Mackenzie, automating cost estimation workflows and building dashboards for business intelligence.\n\nSince joining Visa in 2020, Divyesh has progressed from Cyber Security Analyst to Senior Data Engineer, and currently Staff Data Engineer. He has led projects involving Apache Spark, Python, SQL, Cassandra, Airflow, and Linux to build scoring logic, data quality checks, workflow orchestration, and vulnerability management solutions. Divyesh has also earned certifications including Databricks Associate Certified Developer for Apache Spark and completed multiple leadership programs with McKinsey Academy.",
+    "skills": [
+      "Data Engineering & Pipeline Development (Apache Spark, PySpark, SQL, Cassandra, Airflow)",
+      "Cybersecurity & Vulnerability Management",
+      "Python, Java, C#, HTML, CSS",
+      "Unix/Linux Operating Systems",
+      "Data Analytics & Reporting",
+      "Workflow Automation & Process Optimization",
+      "Web Development & OCR Data Processing",
+      "Cloud & Big Data Technologies"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2018,
+        "title": "Python Developer – Texas A&M University",
+        "description": "Extracted and processed securities data from scanned PDFs using OCR to create structured reports for financial analysis."
+      },
+      {
+        "year": 2018,
+        "title": "Software Engineering Intern – GATE Energy",
+        "description": "Developed a data importing web application using C#, ASP.NET, SQL, and JavaScript; automated workflows and designed application architecture."
+      },
+      {
+        "year": 2018,
+        "title": "Web Developer – Texas A&M Engineering Experiment Station (TEES)",
+        "description": "Developed the official website for the IEEE SGSMA 2019 Conference, implementing front-end and back-end functionality."
+      },
+      {
+        "year": 2019,
+        "title": "Data Engineer – Wood Mackenzie",
+        "description": "Automated workflows for well cost estimation, improved accuracy by 30%, and created business intelligence dashboards using Python and Power BI."
+      },
+      {
+        "year": 2020,
+        "title": "Cyber Security Analyst – Visa",
+        "description": "Worked on data analytics, security data pipelines, and reporting to support global information security initiatives."
+      },
+      {
+        "year": 2020,
+        "title": "Senior Data Engineer – Visa",
+        "description": "Designed complex data pipelines for vulnerability scoring and remediation reporting; implemented data quality, workflow orchestration, and security analytics."
+      },
+      {
+        "year": 2024,
+        "title": "Staff Data Engineer – Visa",
+        "description": "Leads design and implementation of global data pipelines for vulnerability management using Apache Spark, Python, Cassandra, SQL, Airflow, and Linux."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": false,
+    "linkedInUrl": "https://www.linkedin.com/in/divyesh-batra-82a3b059/",
+    "education": [
+      {
+        "institution": "Texas A&M University – Mays Business School",
+        "degree": "Master's Degree",
+        "field": "Management Information Systems",
+        "startYear": 2017,
+        "endYear": 2019,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "Delhi College of Engineering",
+        "degree": "Bachelor of Technology (B.Tech.)",
+        "field": "Engineering Physics/Applied Physics",
+        "startYear": 2009,
+        "endYear": 2013,
+        "logo": null
+      }
+    ],
+    "experience": [
+      {
+        "company": "Visa",
+        "title": "Staff Data Engineer",
+        "employmentType": "Full-time",
+        "startDate": "Jul 2024",
+        "endDate": null,
+        "location": "",
+        "description": "Leads design and implementation of global data pipelines for vulnerability management using Apache Spark, Python, Cassandra, SQL, Airflow, and Linux.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png"
+      },
+      {
+        "company": "Visa",
+        "title": "Senior Data Engineer",
+        "employmentType": "Full-time",
+        "startDate": "Nov 2020",
+        "endDate": "Jul 2024",
+        "location": "",
+        "description": "Designed complex data pipelines for vulnerability scoring and remediation reporting; implemented data quality, workflow orchestration, and security analytics.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png"
+      },
+      {
+        "company": "Visa",
+        "title": "Cyber Security Analyst",
+        "employmentType": "Full-time",
+        "startDate": "Feb 2020",
+        "endDate": "Nov 2020",
+        "location": "",
+        "description": "Worked on data analytics, security data pipelines, and reporting to support global information security initiatives.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png"
+      },
+      {
+        "company": "Wood Mackenzie",
+        "title": "Data Engineer",
+        "employmentType": "Full-time",
+        "startDate": "Aug 2019",
+        "endDate": "Feb 2020",
+        "location": "",
+        "description": "Automated workflows for well cost estimation, improved accuracy by 30%, and created business intelligence dashboards using Python and Power BI.",
+        "logo": null
+      },
+      {
+        "company": "Texas A&M Engineering Experiment Station (TEES)",
+        "title": "Web Developer",
+        "employmentType": "Full-time",
+        "startDate": "Sep 2018",
+        "endDate": "May 2019",
+        "location": "",
+        "description": "Developed the official website for the IEEE SGSMA 2019 Conference, implementing front-end and back-end functionality.",
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "company": "GATE Energy",
+        "title": "Software Engineering Intern",
+        "employmentType": "Internship",
+        "startDate": "May 2018",
+        "endDate": "Aug 2018",
+        "location": "",
+        "description": "Developed a data importing web application using C#, ASP.NET, SQL, and JavaScript; automated workflows and designed application architecture.",
+        "logo": null
+      },
+      {
+        "company": "Texas A&M University",
+        "title": "Python Developer",
+        "employmentType": "Full-time",
+        "startDate": "Feb 2018",
+        "endDate": "Apr 2018",
+        "location": "",
+        "description": "Extracted and processed securities data from scanned PDFs using OCR to create structured reports for financial analysis.",
+        "logo": "/primaryTAM.png"
+      }
+    ]
+  },
+  {
+    "id": "alumni_suryakant_k",
+    "name": "Suryakant K.",
+    "gradYear": 2016,
+    "role": "Senior Business Operations Manager – Enterprise Support Experience",
+    "company": "Samsara",
+    "headshot": "/alumni-photos/suryakant-k.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Samsara-Logo.png",
+    "quote": "Technology, data, and customer insights together create safer, more efficient operations.",
+    "fullStory": "Suryakant K. is an operations and customer experience leader with deep expertise in fleet safety, AI-driven solutions, and scalable business operations. He currently leads enterprise support initiatives at Samsara, leveraging data analytics, AI, and automation to optimize processes and enhance fleet safety outcomes.\n\nThroughout his career, Suryakant has focused on improving customer experiences, operational efficiency, and safety compliance by aligning cross-functional teams to design scalable programs. Prior to Samsara, he held strategic roles at VMware, where he led partner program management and business operations analytics projects that significantly improved partner performance, deal win rates, and operational efficiency.\n\nSuryakant is also committed to mentorship and volunteering. He has worked with Teach For India to enhance educational opportunities for underprivileged children and actively supports professional mentorship programs, helping data analysts tell compelling stories through data.",
+    "skills": [
+      "Fleet Safety & AI Innovation",
+      "Scalable Support & Operations",
+      "Data-Driven Strategy & Analytics",
+      "Customer Experience Leadership",
+      "Cross-Functional Team Management",
+      "Tableau, SQL, Real-Time API Integration",
+      "Operational Excellence & Process Optimization"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2016,
+        "title": "Partner Integrity MBA Intern – VMware",
+        "description": "Delivered data-driven insights to senior management, implemented dashboards, and identified operational efficiencies."
+      },
+      {
+        "year": 2016,
+        "title": "Capstone Consultant – Country Fresh, Inc.",
+        "description": "Conducted cost-benefit analysis and designed solutions to optimize fruit waste utilization and operational efficiency."
+      },
+      {
+        "year": 2017,
+        "title": "Business Operations Analyst – VMware",
+        "description": "Designed Tableau-based dashboards for risk profiling and real-time API integrations to streamline partner workflows."
+      },
+      {
+        "year": 2020,
+        "title": "Partner Program Manager – VMware",
+        "description": "Redesigned Partner Integrity Program, improving partner health from 40% to 91% and reducing onboarding time by 50%. Developed Non-Standard Pricing Partner Model, increasing deal win rate from 20% to 70% and closing $50M in deals in a quarter."
+      },
+      {
+        "year": 2022,
+        "title": "Senior Business Operations Manager – Enterprise Support Experience, Samsara",
+        "description": "Led initiatives to enhance fleet safety and customer experience using AI, ML, and analytics. Collaborated with cross-functional teams to implement scalable safety programs and operational improvements."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": true,
+    "linkedInUrl": "https://www.linkedin.com/in/suryakantkaushik/",
+    "education": [
+      {
+        "institution": "Texas A&M University – Mays Business School",
+        "degree": "MBA",
+        "field": "Business Administration & Management, General",
+        "startYear": 2015,
+        "endYear": 2016,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "National Institute of Technology Silchar",
+        "degree": "Bachelor's Degree",
+        "field": "Mechanical Engineering",
+        "startYear": 2004,
+        "endYear": 2008,
+        "logo": null
+      }
+    ],
+    "experience": [
+      {
+        "company": "Samsara",
+        "title": "Senior Business Operations Manager – Enterprise Support Experience",
+        "employmentType": "Full-time",
+        "startDate": "Jun 2022",
+        "endDate": null,
+        "location": "",
+        "description": "Led initiatives to enhance fleet safety and customer experience using AI, ML, and analytics. Collaborated with cross-functional teams to implement scalable safety programs and operational improvements. Supported rollout of new AI safety features (Following Distance V2, Drowsiness Detection, Lane Departure).",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Samsara-Logo.png"
+      },
+      {
+        "company": "VMware",
+        "title": "Partner Program Manager",
+        "employmentType": "Full-time",
+        "startDate": "Oct 2020",
+        "endDate": "Jun 2022",
+        "location": "",
+        "description": "Redesigned Partner Integrity Program, improving partner health from 40% to 91% and reducing onboarding time by 50%. Developed Non-Standard Pricing Partner Model, increasing deal win rate from 20% to 70% and closing $50M in deals in a quarter. Led Analytics & BI Team to deliver actionable dashboards using SQL and Tableau.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/VMware-Logo.png"
+      },
+      {
+        "company": "VMware",
+        "title": "Business Operations Analyst",
+        "employmentType": "Full-time",
+        "startDate": "Feb 2017",
+        "endDate": "Jul 2019",
+        "location": "",
+        "description": "Designed Tableau-based dashboards for risk profiling and real-time API integrations to streamline partner workflows.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/VMware-Logo.png"
+      },
+      {
+        "company": "Country Fresh, Inc.",
+        "title": "Capstone Consultant",
+        "employmentType": "Contract",
+        "startDate": "Sep 2016",
+        "endDate": "Dec 2016",
+        "location": "",
+        "description": "Conducted cost-benefit analysis and designed solutions to optimize fruit waste utilization and operational efficiency.",
+        "logo": null
+      },
+      {
+        "company": "VMware",
+        "title": "Partner Integrity MBA Intern",
+        "employmentType": "Internship",
+        "startDate": "Jun 2016",
+        "endDate": "Aug 2016",
+        "location": "",
+        "description": "Delivered data-driven insights to senior management, implemented dashboards, and identified operational efficiencies.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/VMware-Logo.png"
+      }
+    ]
+  },
+  {
+    "id": "alumni_john_billings",
+    "name": "John Billings",
+    "gradYear": null,
+    "role": "Chief Revenue Officer",
+    "company": "Travation",
+    "headshot": "/alumni-photos/john-billings.jpg",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Travation-Logo.png",
+    "quote": "Bridging strategy and execution to create measurable growth and lasting impact.",
+    "fullStory": "John Billings is a global executive and revenue strategist with extensive experience in sales leadership, strategic execution, M&A integration, and AI-driven business transformation. He has a proven record of building high-performing teams, creating scalable revenue engines, and driving measurable business outcomes across technology, travel, and software industries.\n\nJohn's expertise spans end-to-end sales operations, digital transformation, and strategic consulting. He has a strong focus on bridging the strategy-execution gap, turning organizational vision into actionable results while cultivating a culture of accountability and winning mindset.\n\nHe is also an advisor and mentor, supporting the next generation of entrepreneurs and students through AggieX and Texas A&M's mentoring programs. John serves as an Adjunct Professor at Texas A&M University – Mays Business School and has taught Professional Selling at Schreiner University.",
+    "skills": [
+      "Revenue Strategy & Execution",
+      "Sales Leadership & Enterprise Sales",
+      "Strategic Planning & Execution Gap Management",
+      "Digital Transformation & SaaS Adoption",
+      "Mergers & Acquisitions Integration",
+      "Team Building & Staff Development",
+      "International Sales & Business Development"
+    ],
+    "cmiActivities": [
+      "MS MIS Mentoring Program - Mentor",
+      "AggieX Advisor"
+    ],
+    "timeline": [
+      {
+        "year": 1999,
+        "title": "Director of Business Development – PROS, Inc.",
+        "description": "Led North America and Europe sales efforts, generating $55M in new L&I revenue and $23M in recurring revenue. Established team processes, optimized sales cycle, and contributed to product development initiatives."
+      },
+      {
+        "year": 2007,
+        "title": "Vice President, Business Development – PROS, Inc.",
+        "description": "Enhanced revenue from existing clients and closed large new business opportunities. Implemented pricing models and strategic sales approaches, achieving over 300% revenue growth on select accounts."
+      },
+      {
+        "year": 2011,
+        "title": "Senior Vice President (Travel and Transportation) – PROS, Inc.",
+        "description": "Directed cross-functional enterprise sales teams globally. Managed $100M+ in revenue and led strategic planning, digital transformation, and SaaS adoption initiatives. Delivered year-over-year growth in ACV (28%) and TCV (26%) and successfully led M&A integration."
+      },
+      {
+        "year": 2024,
+        "title": "Adjunct Professor – Professional Selling, Schreiner University",
+        "description": "Taught a course on personal selling techniques, curriculum design, and sales strategy. Evaluated and guided a class of 13 students while integrating practical sales insights and teaching methodology."
+      },
+      {
+        "year": 2025,
+        "title": "Chief Revenue Officer – Travation",
+        "description": "Lead revenue strategy and execution for AI-first solutions in the airline, travel, and hospitality sectors. Drive partnership development, strategic sales, and global market expansion. Focus on delivering measurable transformation outcomes through agentic AI solutions."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": true,
+    "linkedInUrl": "https://www.linkedin.com/in/john-billings-37827514/",
+    "education": [
+      {
+        "institution": "Texas A&M University",
+        "degree": "BBA",
+        "field": "Business Analysis/Management Science",
+        "startYear": null,
+        "endYear": null,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "University of St. Thomas (TX)",
+        "degree": "MBA",
+        "field": "Marketing",
+        "startYear": null,
+        "endYear": null,
+        "logo": null
+      }
+    ],
+    "experience": [
+      {
+        "company": "Travation",
+        "title": "Chief Revenue Officer",
+        "employmentType": "Full-time",
+        "startDate": "Jan 2025",
+        "endDate": null,
+        "location": "Houston, TX",
+        "description": "Lead revenue strategy and execution for AI-first solutions in the airline, travel, and hospitality sectors. Drive partnership development, strategic sales, and global market expansion. Focus on delivering measurable transformation outcomes through agentic AI solutions for strategic initiatives such as digital transformation and customer experience improvements.",
+        "logo": null
+      },
+      {
+        "company": "IMSM",
+        "title": "Consultant",
+        "employmentType": "Contract",
+        "startDate": "Oct 2024",
+        "endDate": "Jan 2025",
+        "location": "",
+        "description": "Advised a global ISO certification company on operational and business strategy.",
+        "logo": null
+      },
+      {
+        "company": "Schreiner University",
+        "title": "Adjunct Professor – Professional Selling",
+        "employmentType": "Part-time",
+        "startDate": "Jan 2024",
+        "endDate": "May 2024",
+        "location": "",
+        "description": "Taught a course on personal selling techniques, curriculum design, and sales strategy. Evaluated and guided a class of 13 students while integrating practical sales insights and teaching methodology.",
+        "logo": null
+      },
+      {
+        "company": "PROS, Inc.",
+        "title": "Senior Vice President (Travel and Transportation)",
+        "employmentType": "Full-time",
+        "startDate": "Jan 2011",
+        "endDate": "Apr 2022",
+        "location": "",
+        "description": "Directed cross-functional enterprise sales teams globally. Managed $100M+ in revenue and led strategic planning, digital transformation, and SaaS adoption initiatives. Delivered year-over-year growth in ACV (28%) and TCV (26%) and successfully led M&A integration.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/PROS-Logo.png"
+      },
+      {
+        "company": "PROS, Inc.",
+        "title": "Vice President, Business Development",
+        "employmentType": "Full-time",
+        "startDate": "Apr 2007",
+        "endDate": "Dec 2010",
+        "location": "",
+        "description": "Enhanced revenue from existing clients and closed large new business opportunities. Implemented pricing models and strategic sales approaches, achieving over 300% revenue growth on select accounts.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/PROS-Logo.png"
+      },
+      {
+        "company": "PROS, Inc.",
+        "title": "Director of Business Development",
+        "employmentType": "Full-time",
+        "startDate": "Apr 1999",
+        "endDate": "Mar 2007",
+        "location": "",
+        "description": "Led North America and Europe sales efforts, generating $55M in new L&I revenue and $23M in recurring revenue. Established team processes, optimized sales cycle, and contributed to product development initiatives.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/PROS-Logo.png"
+      }
+    ]
+  }
+]
+

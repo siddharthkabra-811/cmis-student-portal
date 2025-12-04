@@ -44,6 +44,7 @@ export default function Navigation() {
   const navLinks = [
     { href: "/dashboard", label: "Dashboard" },
     { href: "/events", label: "Events" },
+    { href: "/alumni", label: "Alumni" },
     { href: "/profile", label: "Profile" },
   ];
 
