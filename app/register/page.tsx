@@ -190,7 +190,7 @@ export default function RegisterPage() {
 
           <div className="relative mb-8">
             <span className="inline-flex items-center rounded-full bg-[#500000] text-white px-3 py-1 text-xs font-semibold mb-3 shadow-sm">
-              Step 1 · CMIS Student Registration
+              CMIS Student Registration
             </span>
             {/* Simple progress bar */}
             <div className="w-full mt-1 mb-4 h-1.5 rounded-full bg-[#D6D3C4] overflow-hidden">
