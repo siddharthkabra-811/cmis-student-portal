@@ -5,7 +5,7 @@
     "gradYear": 1994,
     "role": "SVP - Global CIO",
     "company": "Lightera",
-    "headshot": "/alumni-photos/blaine-bryant.jpg",
+    "headshot": "/alumni-photos/blaine-bryant.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Accelya-Logo.png",
     "quote": "Effective IT leadership is built on strong governance, clear strategy, and delivering measurable value to the business.",
     "fullStory": "Blaine Bryant is an accomplished IT executive with more than 25 years of experience leading enterprise technology operations and service-management transformations. His career spans global infrastructure operations, banking and financial services IT, and large-scale enterprise governance programs.\n\nBlaine spent over a decade at BMC Software, where he led IT service governance, software-asset management, financial oversight for IT operations, and major digital-transformation initiatives. He became known for driving measurable savings, improving service maturity, and aligning IT operations with business strategy.\n\nIn his most recent role, Blaine joined Accelya Group as Global CIO, where he oversees enterprise technology strategy, IT operations, cybersecurity, and digital transformation efforts across the organization. His leadership emphasizes governance, cost optimization, risk management, and building high-performing IT teams.",
@@ -129,57 +129,54 @@
     "gradYear": null,
     "role": "Chief Technology Officer",
     "company": "Daniel Stark LLP",
-    "headshot": "/alumni-photos/jeff-richardson.jpg",
+    "headshot": "/alumni-photos/jeff-richardson.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Daniel-Stark-Logo.png",
-    "quote": "A successful transformation blends the right technology with clear vision, strong leadership, and empowered teams.",
-    "fullStory": "Jeff Richardson is a seasoned technology leader with deep experience driving organizational development through strategic IT advancement. Over decades, he has led complex digital-transformation efforts across corporate, nonprofit, and consulting environments.\n\nJeff began his career in IT leadership positions within regional enterprises — including a key role directing technology for a multi-brand grocery enterprise undergoing ownership transition. He later served as VP / CIO at a service-organization firm, where he oversaw enterprise technology and modernization strategy. Afterwards, he expanded into the nonprofit sector as Senior Product Manager at a global nonprofit, managing enterprise applications and global systems.\n\nIn 2017, Jeff founded B5 Digital Strategy, working as Principal Consultant to help organizations navigate technology growth, digital strategy, and operational transformation. After several years of consulting success, in 2024 he became Chief Technology Officer at Daniel Stark LLP, where he now oversees firm-wide technology strategy, digital operations, and innovation.\n\nJeff is known for guiding cross-functional teams through complex challenges and delivering forward-looking technology solutions that drive measurable impact.",
+    "quote": "Driving organizational growth through technology, innovation, and cross-functional leadership.",
+    "fullStory": "Jeff Richardson is a seasoned technology executive with a proven track record of leading complex IT transformations, enhancing operational efficiency, and aligning technology initiatives with business strategy. His expertise spans IT leadership, digital strategy, process improvement, workforce management, and enterprise systems integration.\n\nJeff combines deep technical knowledge with strategic business acumen, enabling organizations to innovate, scale, and deliver exceptional customer experiences. He is also actively involved in volunteer initiatives supporting children and youth through advocacy and social programs, including serving as a Court Appointed Special Advocate for Children and as a Sponsorship Executive with Young Life.",
     "skills": [
-      "IT Transformation & Modernization",
-      "Digital Strategy & Technology Roadmapping",
-      "Enterprise Leadership & Management",
-      "Product & Application Management",
+      "IT Strategy & Transformation",
+      "Enterprise Systems & Process Improvement",
       "Cross-Functional Team Leadership",
-      "Systems Implementation & Integration",
-      "Strategic Planning & Organizational Development",
-      "Technology Operations Management",
-      "Global / Enterprise Application Governance"
+      "Digital Innovation & Technology Deployment",
+      "Operational Excellence & Workforce Management",
+      "Organizational Development"
     ],
-    "cmiActivities": [],
+    "cmiActivities": ["Mentor - Texas A&M University"],
     "timeline": [
       {
         "year": 2005,
-        "title": "Director of IT – Minyard Companies",
-        "description": "Led technology operations for a multi-brand regional grocery enterprise during a period of private-equity ownership transition."
+        "title": "Director, IT – Minyard Companies",
+        "description": "Directed IT operations for a regional grocery retailer during a private equity turnaround. Led system upgrades, process improvements, and technology integration initiatives."
       },
       {
         "year": 2009,
-        "title": "VP / CIO – The CMI Group, Inc.",
-        "description": "Oversaw enterprise technology, digital modernization, and IT operational strategy for a service-organization firm."
+        "title": "VP/CIO – The CMI Group, Inc.",
+        "description": "Oversaw IT strategy, operations, and workforce management to support corporate growth."
       },
       {
         "year": 2011,
-        "title": "Senior Product Manager, Global Applications – Compassion International",
-        "description": "Directed major global applications and leadership/ systems for an international nonprofit's global-scale operations."
+        "title": "Senior Product Manager, Global Leadership Office/Global Applications – Compassion International",
+        "description": "Managed global technology applications supporting leadership and operational initiatives. Implemented innovative solutions to improve efficiency and impact across international teams."
       },
       {
         "year": 2017,
-        "title": "Principal – B5 Digital Strategy",
-        "description": "Provided strategic consulting to organizations for digital transformation, systems modernization, and technology operations."
+        "title": "Principal – B5 Digital Strategies",
+        "description": "Provided consulting services on digital strategy, IT transformation, and operational improvement. Guided companies through complex technology deployments, optimizing processes and business outcomes."
       },
       {
         "year": 2024,
         "title": "Chief Technology Officer – Daniel Stark LLP",
-        "description": "Leads enterprise IT strategy, cybersecurity, infrastructure, and innovation initiatives across the firm."
+        "description": "Lead technology strategy and implementation, driving enterprise IT transformation initiatives. Oversee cross-functional teams to deliver scalable solutions aligned with organizational goals."
       }
     ],
     "industry": "Tech",
-    "availableForMentorship": false,
+    "availableForMentorship": true,
     "linkedInUrl": "https://www.linkedin.com/in/jeff2richardson/",
     "education": [
       {
         "institution": "Texas A&M University",
-        "degree": "Not Listed",
-        "field": "Not Listed",
+        "degree": "Bachelor of Science (BS)",
+        "field": "Industrial Engineering",
         "startYear": null,
         "endYear": null,
         "logo": "/primaryTAM.png"
@@ -190,50 +187,50 @@
         "company": "Daniel Stark LLP",
         "title": "Chief Technology Officer",
         "employmentType": "Full-time",
-        "startDate": "2024",
+        "startDate": "Aug 2024",
         "endDate": null,
-        "location": "",
-        "description": "Leads enterprise IT strategy, cybersecurity, infrastructure, and innovation initiatives across the firm.",
+        "location": "College Station, Texas",
+        "description": "Lead technology strategy and implementation, driving enterprise IT transformation initiatives. Oversee cross-functional teams to deliver scalable solutions aligned with organizational goals.",
         "logo": null
       },
       {
-        "company": "B5 Digital Strategy",
+        "company": "B5 Digital Strategies",
         "title": "Principal",
         "employmentType": "Full-time",
-        "startDate": "2017",
-        "endDate": "2024",
+        "startDate": "Feb 2017",
+        "endDate": "Sep 2024",
         "location": "",
-        "description": "Provided strategic consulting to organizations for digital transformation, systems modernization, and technology operations.",
+        "description": "Provided consulting services on digital strategy, IT transformation, and operational improvement. Guided companies through complex technology deployments, optimizing processes and business outcomes.",
         "logo": null
       },
       {
         "company": "Compassion International",
-        "title": "Senior Product Manager, Global Applications",
+        "title": "Senior Product Manager, Global Leadership Office/Global Applications",
         "employmentType": "Full-time",
-        "startDate": "2011",
-        "endDate": "2017",
+        "startDate": "Oct 2011",
+        "endDate": "Nov 2017",
         "location": "",
-        "description": "Directed major global applications and leadership/ systems for an international nonprofit's global-scale operations.",
+        "description": "Managed global technology applications supporting leadership and operational initiatives. Implemented innovative solutions to improve efficiency and impact across international teams.",
         "logo": null
       },
       {
         "company": "The CMI Group, Inc.",
-        "title": "VP / CIO",
+        "title": "VP/CIO",
         "employmentType": "Full-time",
-        "startDate": "2009",
-        "endDate": "2011",
+        "startDate": "May 2009",
+        "endDate": "Oct 2011",
         "location": "",
-        "description": "Oversaw enterprise technology, digital modernization, and IT operational strategy for a service-organization firm.",
+        "description": "Oversaw IT strategy, operations, and workforce management to support corporate growth.",
         "logo": null
       },
       {
         "company": "Minyard Companies",
-        "title": "Director of IT",
+        "title": "Director, IT",
         "employmentType": "Full-time",
         "startDate": "2005",
         "endDate": "2009",
         "location": "",
-        "description": "Led technology operations for a multi-brand regional grocery enterprise during a period of private-equity ownership transition.",
+        "description": "Directed IT operations for a regional grocery retailer during a private equity turnaround. Led system upgrades, process improvements, and technology integration initiatives.",
         "logo": null
       }
     ]
@@ -244,7 +241,7 @@
     "gradYear": 2013,
     "role": "Consultant, Business Transformation",
     "company": "Dell Technologies",
-    "headshot": "/alumni-photos/mahidhar-panyam.jpg",
+    "headshot": "/alumni-photos/mahidhar-panyam.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2020/03/Dell-Logo.png",
     "quote": "Delivering transformation is about aligning people, processes, and technology to create lasting value for global organizations.",
     "fullStory": "Mahidhar Panyam is a seasoned program and transformation leader with extensive experience in driving process improvement, system integration, and business transformation initiatives across global enterprises. He is passionate about data exploration and collaborative problem solving, leveraging these skills to streamline operations, reduce costs, and improve customer experiences.\n\nMahidhar began his career at Relativity Technologies in India, developing software proof-of-concepts and training customers on technical tools. He then advanced through leadership roles at Accenture, managing large-scale projects in healthcare and telecom, including global offshore delivery and talent management.\n\nIn 2013, Mahidhar joined Dell Technologies, starting as a Senior Advisor (Intern) in Commercial Sales Operations. Over the years, he progressed to Senior Advisor for Global Sales Operations, implementing cost-saving initiatives, improving cash-flow processes, and enhancing customer experience. Since 2016, he has served as a Consultant in the Business Transformation Office, delivering operational capabilities, managing cross-functional projects, guiding solution development, and ensuring successful adoption of new processes and systems.",
@@ -366,7 +363,7 @@
     "gradYear": 2019,
     "role": "Staff Data Engineer",
     "company": "Visa",
-    "headshot": "/alumni-photos/divyesh-batra.jpg",
+    "headshot": "/alumni-photos/divyesh-batra.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png",
     "quote": "Data-driven security requires precision, collaboration, and a proactive approach across all layers of technology.",
     "fullStory": "Divyesh Batra is an experienced data engineer specializing in global information security and data analytics within the financial services sector. He currently serves as a Staff Data Engineer at Visa, where he designs and manages complex data pipelines to track vulnerabilities, technical security requirements, and container security across Visa and acquired entities.\n\nDivyesh's career began in engineering and web development roles at Texas A&M Engineering Experiment Station (TEES) and GATE Energy, where he built web applications, automated workflows, and implemented OCR-based data processing solutions. He later worked as a Data Engineer at Wood Mackenzie, automating cost estimation workflows and building dashboards for business intelligence.\n\nSince joining Visa in 2020, Divyesh has progressed from Cyber Security Analyst to Senior Data Engineer, and currently Staff Data Engineer. He has led projects involving Apache Spark, Python, SQL, Cassandra, Airflow, and Linux to build scoring logic, data quality checks, workflow orchestration, and vulnerability management solutions. Divyesh has also earned certifications including Databricks Associate Certified Developer for Apache Spark and completed multiple leadership programs with McKinsey Academy.",
@@ -518,7 +515,7 @@
     "gradYear": 2016,
     "role": "Senior Business Operations Manager – Enterprise Support Experience",
     "company": "Samsara",
-    "headshot": "/alumni-photos/suryakant-k.jpg",
+    "headshot": "/alumni-photos/suryakant-kaushik.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Samsara-Logo.png",
     "quote": "Technology, data, and customer insights together create safer, more efficient operations.",
     "fullStory": "Suryakant K. is an operations and customer experience leader with deep expertise in fleet safety, AI-driven solutions, and scalable business operations. He currently leads enterprise support initiatives at Samsara, leveraging data analytics, AI, and automation to optimize processes and enhance fleet safety outcomes.\n\nThroughout his career, Suryakant has focused on improving customer experiences, operational efficiency, and safety compliance by aligning cross-functional teams to design scalable programs. Prior to Samsara, he held strategic roles at VMware, where he led partner program management and business operations analytics projects that significantly improved partner performance, deal win rates, and operational efficiency.\n\nSuryakant is also committed to mentorship and volunteering. He has worked with Teach For India to enhance educational opportunities for underprivileged children and actively supports professional mentorship programs, helping data analysts tell compelling stories through data.",
@@ -639,7 +636,7 @@
     "gradYear": null,
     "role": "Chief Revenue Officer",
     "company": "Travation",
-    "headshot": "/alumni-photos/john-billings.jpg",
+    "headshot": "/alumni-photos/john-billings.jfif",
     "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Travation-Logo.png",
     "quote": "Bridging strategy and execution to create measurable growth and lasting impact.",
     "fullStory": "John Billings is a global executive and revenue strategist with extensive experience in sales leadership, strategic execution, M&A integration, and AI-driven business transformation. He has a proven record of building high-performing teams, creating scalable revenue engines, and driving measurable business outcomes across technology, travel, and software industries.\n\nJohn's expertise spans end-to-end sales operations, digital transformation, and strategic consulting. He has a strong focus on bridging the strategy-execution gap, turning organizational vision into actionable results while cultivating a culture of accountability and winning mindset.\n\nHe is also an advisor and mentor, supporting the next generation of entrepreneurs and students through AggieX and Texas A&M's mentoring programs. John serves as an Adjunct Professor at Texas A&M University – Mays Business School and has taught Professional Selling at Schreiner University.",
@@ -652,10 +649,7 @@
       "Team Building & Staff Development",
       "International Sales & Business Development"
     ],
-    "cmiActivities": [
-      "MS MIS Mentoring Program - Mentor",
-      "AggieX Advisor"
-    ],
+    "cmiActivities": ["MS MIS Mentoring Program - Mentor", "AggieX Advisor"],
     "timeline": [
       {
         "year": 1999,
@@ -766,6 +760,125 @@
         "logo": "https://logos-world.net/wp-content/uploads/2021/08/PROS-Logo.png"
       }
     ]
+  },
+  {
+    "id": "alumni_nikhil_gupta",
+    "name": "Nikhil Gupta",
+    "gradYear": 2018,
+    "role": "Software Engineer",
+    "company": "Google",
+    "headshot": "/alumni-photos/nikhil-gupta.jfif",
+    "companyLogo": "https://logos-world.net/wp-content/uploads/2021/08/Google-Logo.png",
+    "quote": "Designing high-throughput, low-latency systems that scale and deliver impact.",
+    "fullStory": "Nikhil Gupta is a versatile software engineer with deep expertise in designing, building, and maintaining distributed systems, cloud platforms, and high-throughput applications. He specializes in leveraging modern technologies such as Java, Python, Kafka, Redis, and AWS to create resilient, scalable, and efficient systems.\n\nNikhil combines hands-on engineering skills with strong analytical capabilities, ensuring solutions are performant, reliable, and aligned with business objectives. He is passionate about open-source development, cloud computing, and mentoring emerging engineers. Nikhil has also contributed to volunteer work with Hands Heart & Soul and Art of Living, where he guided meditation programs impacting 450+ individuals to reduce stress.",
+    "skills": [
+      "Systems Design & Architecture",
+      "Distributed Systems & High-Throughput Pipelines",
+      "Cloud Platforms (AWS, GCP)",
+      "Java, Python, SQL, NoSQL (MongoDB, Redis)",
+      "Kafka, gRPC, Spring Boot, Spring Cloud",
+      "Agile Methodology, CI/CD, Testing (JUnit, Mockito)"
+    ],
+    "cmiActivities": [],
+    "timeline": [
+      {
+        "year": 2016,
+        "title": "Technical Application Specialist – Hewlett Packard Enterprise",
+        "description": "Worked in Bengaluru, India, providing technical application support and solutions."
+      },
+      {
+        "year": 2018,
+        "title": "Software Developer Intern – T3: Now Material",
+        "description": "Gained hands-on experience in software development and cloud technologies."
+      },
+      {
+        "year": 2019,
+        "title": "Senior Software Engineer – Visa",
+        "description": "Developed Visa's AI Platform within the Risk & Authentication team, implementing Kafka-based pipelines and Redis integration. Led end-to-end testing, Dev-lead responsibilities, and disaster recovery setup for PaaS applications."
+      },
+      {
+        "year": 2022,
+        "title": "SDE-2 – Amazon Web Services (AWS)",
+        "description": "Part of Athena's Admissions Control Team, enforcing throttling policies across workgroups and sessions."
+      },
+      {
+        "year": 2022,
+        "title": "Software Engineer – Google",
+        "description": "Build and maintain Google Core systems, ensuring low-latency, high-throughput distributed architectures. Develop cloud-native solutions using SQL, Java, and modern distributed system frameworks."
+      }
+    ],
+    "industry": "Tech",
+    "availableForMentorship": false,
+    "linkedInUrl": "https://www.linkedin.com/in/niksgupta36/",
+    "education": [
+      {
+        "institution": "Texas A&M University",
+        "degree": "MS",
+        "field": "Management Information Systems",
+        "startYear": null,
+        "endYear": 2018,
+        "logo": "/primaryTAM.png"
+      },
+      {
+        "institution": "Maharshi Dayanand University",
+        "degree": "Bachelor's Degree",
+        "field": "Computer Science",
+        "startYear": null,
+        "endYear": null,
+        "logo": null
+      }
+    ],
+    "experience": [
+      {
+        "company": "Google",
+        "title": "Software Engineer",
+        "employmentType": "Full-time",
+        "startDate": "May 2022",
+        "endDate": null,
+        "location": "Austin, Texas",
+        "description": "Build and maintain Google Core systems, ensuring low-latency, high-throughput distributed architectures. Develop cloud-native solutions using SQL, Java, and modern distributed system frameworks.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Google-Logo.png"
+      },
+      {
+        "company": "Amazon Web Services (AWS)",
+        "title": "SDE-2",
+        "employmentType": "Full-time",
+        "startDate": "Feb 2022",
+        "endDate": "May 2022",
+        "location": "Texas, United States",
+        "description": "Part of Athena's Admissions Control Team, enforcing throttling policies across workgroups and sessions.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Amazon-Web-Services-AWS-Logo.png"
+      },
+      {
+        "company": "Visa",
+        "title": "Senior Software Engineer",
+        "employmentType": "Full-time",
+        "startDate": "Jul 2019",
+        "endDate": "Feb 2022",
+        "location": "Texas, United States",
+        "description": "Developed Visa's AI Platform within the Risk & Authentication team, implementing Kafka-based pipelines and Redis integration. Led end-to-end testing, Dev-lead responsibilities, and disaster recovery setup for PaaS applications. Built monitoring dashboards, alerts, and reports for real-time risk scoring and platform health.",
+        "logo": "https://logos-world.net/wp-content/uploads/2020/03/Visa-Logo.png"
+      },
+      {
+        "company": "T3: Now Material",
+        "title": "Software Developer Intern",
+        "employmentType": "Internship",
+        "startDate": "Jun 2018",
+        "endDate": "Dec 2018",
+        "location": "Texas, United States",
+        "description": "Gained hands-on experience in software development and cloud technologies.",
+        "logo": null
+      },
+      {
+        "company": "Hewlett Packard Enterprise",
+        "title": "Technical Application Specialist",
+        "employmentType": "Full-time",
+        "startDate": "Sep 2016",
+        "endDate": "Jul 2017",
+        "location": "Bengaluru, India",
+        "description": "Provided technical application support and solutions.",
+        "logo": "https://logos-world.net/wp-content/uploads/2021/08/Hewlett-Packard-Enterprise-Logo.png"
+      }
+    ]
   }
 ]
-
