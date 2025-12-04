@@ -1,28 +1,25 @@
 "use client";
 
 import Navigation from "@/components/Navigation";
-import ResumeUploadDialog from "@/components/ResumeUploadDialog";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
-import type { Resume } from "@/lib/types";
 
 export default function ProfilePage() {
   const [userDetails, setUserDetails] = useState<any>(null);
-  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const details = localStorage.getItem("currentUser");
       if (details) {
         setUserDetails(JSON.parse(details));
       }
     }
-  }, []);
+  }, [userDetails]);
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["userProfile"],
+    queryKey: ["userProfile", userDetails?.id],
     queryFn: async () => {
       try {
         const res = await fetch(`/api/students?id=${userDetails?.id} `);
@@ -36,65 +33,8 @@ export default function ProfilePage() {
         toast.error("Error fetching user profile");
       }
     },
+    enabled: !!userDetails,
   });
-
-  // const handleSetPrimary = async (resumeId: string) => {
-  //   try {
-  //     const response = await fetch("/api/students/resume/set-primary", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userId: userDetails?.id,
-  //         resumeId,
-  //       }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to set primary resume");
-  //     }
-
-  //     toast.success("Primary resume updated");
-  //     refetch();
-  //   } catch (error) {
-  //     console.error("Error setting primary resume:", error);
-  //     toast.error("Failed to set primary resume");
-  //   }
-  // };
-
-  // const handleDeleteResume = async (resumeId: string) => {
-  //   if (!confirm("Are you sure you want to delete this resume?")) {
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch("/api/students/resume/delete", {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userId: userDetails?.id,
-  //         resumeId,
-  //       }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to delete resume");
-  //     }
-
-  //     toast.success("Resume deleted successfully");
-  //     refetch();
-  //   } catch (error) {
-  //     console.error("Error deleting resume:", error);
-  //     toast.error("Failed to delete resume");
-  //   }
-  // };
-
-  // const handleUploadSuccess = () => {
-  //   refetch();
-  // };
 
   if (isLoading) {
     return (
