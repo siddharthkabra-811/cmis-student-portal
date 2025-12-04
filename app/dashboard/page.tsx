@@ -10,7 +10,7 @@ export default function DashboardPage() {
   const [user, setUser] = React.useState<any>({});
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const currentUser = localStorage.getItem("currentUser");
       if (currentUser) {
         setUser(JSON.parse(currentUser));
@@ -34,7 +34,7 @@ export default function DashboardPage() {
       icon: "⭐",
       tag: "Featured",
       tagColor: "bg-purple-100 text-purple-700",
-      href: "https://cmis.ai/",
+      href: "/alumni",
       gradient: "from-purple-50 to-purple-100",
     },
     {
@@ -51,7 +51,8 @@ export default function DashboardPage() {
   const blogPosts = [
     {
       title: "Navigating Your Tech Career in 2024",
-      excerpt: "Expert insights on building a successful career in technology and information systems...",
+      excerpt:
+        "Expert insights on building a successful career in technology and information systems...",
       author: "CMIS Team",
       readTime: "5 min read",
       category: "Career",
@@ -60,7 +61,8 @@ export default function DashboardPage() {
     },
     {
       title: "Interview Preparation Guide",
-      excerpt: "Master the art of technical interviews with our comprehensive preparation strategies...",
+      excerpt:
+        "Master the art of technical interviews with our comprehensive preparation strategies...",
       author: "Career Services",
       readTime: "8 min read",
       category: "Tips",
@@ -69,7 +71,8 @@ export default function DashboardPage() {
     },
     {
       title: "Networking Like a Pro",
-      excerpt: "Learn how to build meaningful professional connections and expand your network...",
+      excerpt:
+        "Learn how to build meaningful professional connections and expand your network...",
       author: "Alumni Relations",
       readTime: "6 min read",
       category: "Networking",
@@ -85,25 +88,25 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Registration Banner */}
         {!user.isRegistered && (
-        <div className="mb-6 bg-gradient-to-r from-maroon-500 to-maroon-600 rounded-xl shadow-lg overflow-hidden">
-          <div className="px-6 py-4 flex flex-col sm:flex-row items-center justify-between">
-            <div className="text-white mb-4 sm:mb-0">
-              <h2 className="text-xl font-bold mb-1">
-                Complete Your CMIS Registration
-              </h2>
-              <p className="text-sm text-maroon-100">
-                You&apos;re not registered for CMIS — sign up now to access all
-                features and events!
-              </p>
+          <div className="mb-6 bg-gradient-to-r from-maroon-500 to-maroon-600 rounded-xl shadow-lg overflow-hidden">
+            <div className="px-6 py-4 flex flex-col sm:flex-row items-center justify-between">
+              <div className="text-white mb-4 sm:mb-0">
+                <h2 className="text-xl font-bold mb-1">
+                  Complete Your CMIS Registration
+                </h2>
+                <p className="text-sm text-maroon-100">
+                  You&apos;re not registered for CMIS — sign up now to access
+                  all features and events!
+                </p>
+              </div>
+              <Link
+                href="/register"
+                className="bg-white text-maroon-600 px-6 py-3 rounded-lg font-semibold hover:bg-maroon-50 transition shadow-md whitespace-nowrap"
+              >
+                Register Now →
+              </Link>
             </div>
-            <Link
-              href="/register"
-              className="bg-white text-maroon-600 px-6 py-3 rounded-lg font-semibold hover:bg-maroon-50 transition shadow-md whitespace-nowrap"
-            >
-              Register Now →
-            </Link>
           </div>
-        </div>
         )}
 
         {/* Welcome Message */}
@@ -124,7 +127,9 @@ export default function DashboardPage() {
         {/* Featured Content Cards */}
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Featured Content</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Featured Content
+            </h2>
             <a
               href="https://cmis.ai/"
               target="_blank"
@@ -140,13 +145,17 @@ export default function DashboardPage() {
               <a
                 key={item.title}
                 href={item.href}
-                target="_blank"
+                target={
+                  item?.title === "Success Stories" ? undefined : "_blank"
+                }
                 rel="noopener noreferrer"
                 className={`bg-gradient-to-br ${item.gradient} border-2 border-gray-200 rounded-2xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group cursor-pointer`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="text-5xl">{item.icon}</div>
-                  <span className={`${item.tagColor} px-3 py-1 rounded-full text-xs font-semibold`}>
+                  <span
+                    className={`${item.tagColor} px-3 py-1 rounded-full text-xs font-semibold`}
+                  >
                     {item.tag}
                   </span>
                 </div>
@@ -157,7 +166,10 @@ export default function DashboardPage() {
                   {item.description}
                 </p>
                 <div className="mt-4 text-maroon-600 font-semibold text-sm flex items-center gap-1">
-                  Explore <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  Explore{" "}
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
                 </div>
               </a>
             ))}
@@ -168,8 +180,12 @@ export default function DashboardPage() {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-1">Latest from CMIS Blog</h2>
-              <p className="text-gray-600 text-sm">Insights, tips, and stories from our community</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                Latest from CMIS Blog
+              </h2>
+              <p className="text-gray-600 text-sm">
+                Insights, tips, and stories from our community
+              </p>
             </div>
             <a
               href="https://cmis.ai/"
@@ -192,10 +208,14 @@ export default function DashboardPage() {
               >
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className={`${post.categoryColor} px-3 py-1 rounded-full text-xs font-semibold`}>
+                    <span
+                      className={`${post.categoryColor} px-3 py-1 rounded-full text-xs font-semibold`}
+                    >
                       {post.category}
                     </span>
-                    <span className="text-gray-500 text-xs">• {post.readTime}</span>
+                    <span className="text-gray-500 text-xs">
+                      • {post.readTime}
+                    </span>
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-maroon-600 transition-colors">
                     {post.title}
@@ -204,9 +224,14 @@ export default function DashboardPage() {
                     {post.excerpt}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500 font-medium">{post.author}</span>
+                    <span className="text-xs text-gray-500 font-medium">
+                      {post.author}
+                    </span>
                     <span className="text-maroon-600 text-sm font-semibold group-hover:gap-2 flex items-center gap-1 transition-all">
-                      Read More <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      Read More{" "}
+                      <span className="group-hover:translate-x-1 transition-transform">
+                        →
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -225,13 +250,18 @@ export default function DashboardPage() {
             className="bg-gradient-to-br from-maroon-500 to-maroon-700 rounded-2xl p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group"
           >
             <div className="text-5xl mb-4">📬</div>
-            <h3 className="text-2xl font-bold mb-3">Subscribe to Our Newsletter</h3>
+            <h3 className="text-2xl font-bold mb-3">
+              Subscribe to Our Newsletter
+            </h3>
             <p className="text-maroon-100 mb-6 leading-relaxed">
-              Get weekly updates on events, opportunities, and exclusive content delivered to your inbox.
+              Get weekly updates on events, opportunities, and exclusive content
+              delivered to your inbox.
             </p>
             <div className="inline-flex items-center gap-2 bg-white text-maroon-600 px-6 py-3 rounded-lg font-semibold hover:bg-maroon-50 transition-colors">
               Subscribe Now
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <span className="group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </div>
           </a>
 
@@ -245,11 +275,14 @@ export default function DashboardPage() {
             <div className="text-5xl mb-4">📚</div>
             <h3 className="text-2xl font-bold mb-3">Resource Library</h3>
             <p className="text-blue-100 mb-6 leading-relaxed">
-              Access templates, guides, and tools to accelerate your professional development journey.
+              Access templates, guides, and tools to accelerate your
+              professional development journey.
             </p>
             <div className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
               Browse Resources
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <span className="group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </div>
           </a>
         </div>
