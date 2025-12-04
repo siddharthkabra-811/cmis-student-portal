@@ -75,3 +75,49 @@ export interface Notification {
   actionText?: string;
   icon: string;
 }
+
+export interface Education {
+  institution: string;
+  degree: string;
+  field: string;
+  startYear: number | null;
+  endYear: number | null;
+  logo?: string;
+}
+
+export interface Experience {
+  company: string;
+  title: string;
+  employmentType?: string;
+  startDate: string;
+  endDate: string | null; // null for current position
+  location: string;
+  description: string;
+  logo?: string;
+}
+
+export interface Alumni {
+  id: string;
+  name: string;
+  gradYear: number | null;
+  role: string;
+  company: string;
+  headshot: string;
+  companyLogo: string;
+  quote: string;
+  fullStory: string;
+  skills: string[];
+  cmiActivities: string[];
+  timeline: CareerTimelineEntry[];
+  industry: string;
+  availableForMentorship: boolean;
+  linkedInUrl?: string | null;
+  education?: Education[];
+  experience?: Experience[];
+}
+
+export interface CareerTimelineEntry {
+  year: number;
+  title: string;
+  description: string;
+}
