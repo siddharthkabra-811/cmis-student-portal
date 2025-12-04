@@ -59,7 +59,7 @@ export default function AlumniPage() {
     }
 
     return filtered;
-  }, [selectedIndustry, searchQuery]);
+  }, [alumni, selectedIndustry, searchQuery]);
 
   const handleCardClick = (alumni: Alumni) => {
     setSelectedAlumni(alumni);
