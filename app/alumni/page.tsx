@@ -43,7 +43,9 @@ export default function AlumniPage() {
 
     // Filter by industry
     if (selectedIndustry) {
-      filtered = filtered.filter((alumni) => alumni.industry === selectedIndustry);
+      filtered = filtered.filter(
+        (alumni) => alumni.industry === selectedIndustry
+      );
     }
 
     // Filter by search query
@@ -122,12 +124,18 @@ export default function AlumniPage() {
           <>
             <div className="mb-6">
               <p className="text-gray-600">
-                Showing <span className="font-semibold text-gray-900">{filteredAlumni.length}</span>{" "}
+                Showing{" "}
+                <span className="font-semibold text-gray-900">
+                  {filteredAlumni.length}
+                </span>{" "}
                 {filteredAlumni.length === 1 ? "alumnus" : "alumni"}
                 {selectedIndustry && (
                   <>
                     {" "}
-                    in <span className="font-semibold text-maroon-600">{selectedIndustry}</span>
+                    in{" "}
+                    <span className="font-semibold text-maroon-600">
+                      {selectedIndustry}
+                    </span>
                   </>
                 )}
               </p>
@@ -165,39 +173,6 @@ export default function AlumniPage() {
         )}
       </main>
 
-      {/* Call-to-Action Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* CTA Card 1: Share Your Story */}
-            <div className="bg-gradient-to-br from-maroon-500 to-maroon-700 rounded-2xl p-8 md:p-10 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-              <div className="text-5xl mb-6">📝</div>
-              <h3 className="text-3xl font-bold mb-4">Share Your Success Story</h3>
-              <p className="text-maroon-100 mb-8 text-lg leading-relaxed">
-                Inspire future CMIS students by sharing your career journey and achievements.
-              </p>
-              <button className="bg-white text-maroon-600 hover:bg-maroon-50 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center gap-2 group">
-                Submit Yours
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-
-            {/* CTA Card 2: Become a Mentor */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 md:p-10 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-              <div className="text-5xl mb-6">🤝</div>
-              <h3 className="text-3xl font-bold mb-4">Become a CMIS Mentor</h3>
-              <p className="text-blue-100 mb-8 text-lg leading-relaxed">
-                Make a difference in a student&apos; career by sharing your expertise and experience.
-              </p>
-              <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center gap-2 group">
-                Join Mentorship Network
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Modal */}
       <AlumniModal
         alumni={selectedAlumni}
@@ -207,4 +182,3 @@ export default function AlumniPage() {
     </div>
   );
 }
-
