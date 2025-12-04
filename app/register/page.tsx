@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useEffect } from "react";
 import { toast } from "sonner";
+import { Mail, Link2, IdCard } from "lucide-react";
 
 const degreeTypes = ["Bachelors", "Masters"];
 const academicLevels = [
@@ -156,277 +157,360 @@ export default function RegisterPage() {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
 
+  // Simple derived completion metric for the progress bar (UI only)
+  const calculateProgress = () => {
+    const checks = [
+      !!formData.name.trim(),
+      !!formData.uin.trim(),
+      !!formData.degreeType,
+      !!formData.academicLevel,
+      !!formData.graduationYear,
+      !!formData.gpa.trim(),
+      formData.domainsOfInterest.length > 0,
+      formData.targetIndustries.length > 0,
+    ];
+
+    const completed = checks.filter(Boolean).length;
+    const total = checks.length;
+    const ratio = total === 0 ? 0 : completed / total;
+
+    // Clamp between 8% (visible) and 100%
+    return Math.max(8, Math.min(100, Math.round(ratio * 100)));
+  };
+
+  const progress = calculateProgress();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F8F7F2]">
       <Navigation />
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-md p-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+        <div className="relative overflow-hidden rounded-2xl bg-white/95 border border-[#D6D3C4] shadow-lg p-8 md:p-10">
+          {/* Maroon accent bar */}
+          <div className="absolute inset-x-0 top-0 h-1 bg-[#500000]" />
+
+          <div className="relative mb-8">
+            <span className="inline-flex items-center rounded-full bg-[#500000] text-white px-3 py-1 text-xs font-semibold mb-3 shadow-sm">
+              Step 1 · CMIS Student Registration
+            </span>
+            {/* Simple progress bar */}
+            <div className="w-full mt-1 mb-4 h-1.5 rounded-full bg-[#D6D3C4] overflow-hidden">
+              <div
+                className="h-full bg-[#500000] transition-all duration-300"
+                style={{ width: `${progress}%` }}
+                aria-hidden="true"
+              />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-[#500000] mb-2">
               CMIS Registration
             </h1>
-            <p className="text-gray-600">
-              Complete your registration to access all CMIS features and events
+            <p className="text-sm text-[#8c8574] max-w-xl">
+              Tell us a bit about yourself so we can tailor events, mentors, and
+              opportunities to your goals.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="relative space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
-            {/* Full Name */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Full Name *
-              </label>
-              <input
-                id="name"
-                type="text"
-                required
-                placeholder="Enter name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-              />
-            </div>
+            {/* Student Information */}
+            <section className="space-y-4">
+              <h2 className="text-xs font-semibold tracking-wide text-[#500000] uppercase">
+                Student Information
+              </h2>
 
-            {/* UIN */}
-            <div>
-              <label
-                htmlFor="uin"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                UIN (University Identification Number) *
-              </label>
-              <input
-                id="uin"
-                type="text"
-                required
-                value={formData.uin}
-                onChange={(e) =>
-                  setFormData({ ...formData, uin: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-                placeholder="123456789"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Email *
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent bg-gray-50"
-                readOnly
-              />
-            </div>
-
-            {/* LinkedIn URL */}
-            <div>
-              <label
-                htmlFor="linkedinUrl"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                LinkedIn Profile URL
-              </label>
-              <input
-                id="linkedinUrl"
-                // type="url"
-                value={formData.linkedinUrl}
-                onChange={(e) =>
-                  setFormData({ ...formData, linkedinUrl: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-                placeholder="https://www.linkedin.com/in/yourprofile"
-              />
-            </div>
-
-            {/* Degree Type */}
-            <div>
-              <label
-                htmlFor="degreeType"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Degree Type *
-              </label>
-              <select
-                id="degreeType"
-                required
-                value={formData.degreeType}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    degreeType: e.target.value as any,
-                  })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-              >
-                <option value="">Select degree type</option>
-                {degreeTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Academic Level */}
-            <div>
-              <label
-                htmlFor="academicLevel"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Academic Level *
-              </label>
-              <select
-                id="academicLevel"
-                required
-                value={formData.academicLevel}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    academicLevel: e.target.value as any,
-                  })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-              >
-                <option value="">Select academic level</option>
-                {academicLevels.map((level) => (
-                  <option key={level} value={level}>
-                    {level}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Graduation Year and GPA Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Graduation Year */}
+              {/* Full Name */}
               <div>
                 <label
-                  htmlFor="graduationYear"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="name"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
                 >
-                  Expected Graduation Year *
+                  Full Name *
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  placeholder="Enter your full legal name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                />
+              </div>
+
+              {/* UIN */}
+              <div>
+                <label
+                  htmlFor="uin"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
+                >
+                  UIN (University Identification Number) *
+                </label>
+                <div className="relative">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    <IdCard className="w-4 h-4" />
+                  </span>
+                  <input
+                    id="uin"
+                    type="text"
+                    required
+                    value={formData.uin}
+                    onChange={(e) =>
+                      setFormData({ ...formData, uin: e.target.value })
+                    }
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                    placeholder="9-digit UIN (e.g., 123456789)"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-500">
+                  Your UIN is your official Texas A&M student identification number.
+                </p>
+              </div>
+            </section>
+
+            {/* Contact Information */}
+            <section className="space-y-4 pt-2">
+              <h2 className="text-xs font-semibold tracking-wide text-[#500000] uppercase">
+                Contact Information
+              </h2>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
+                >
+                  Email *
+                </label>
+                <div className="relative">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    <Mail className="w-4 h-4" />
+                  </span>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-[#F8F7F2]"
+                    readOnly
+                  />
+                </div>
+              </div>
+
+              {/* LinkedIn URL */}
+              <div>
+                <label
+                  htmlFor="linkedinUrl"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
+                >
+                  LinkedIn Profile URL
+                </label>
+                <div className="relative">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+                    <Link2 className="w-4 h-4" />
+                  </span>
+                  <input
+                    id="linkedinUrl"
+                    value={formData.linkedinUrl}
+                    onChange={(e) =>
+                      setFormData({ ...formData, linkedinUrl: e.target.value })
+                    }
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                    placeholder="https://www.linkedin.com/in/yourprofile"
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Academic Details */}
+            <section className="space-y-4 pt-2">
+              <h2 className="text-xs font-semibold tracking-wide text-[#500000] uppercase">
+                Academic Details
+              </h2>
+
+              {/* Degree Type */}
+              <div>
+                <label
+                  htmlFor="degreeType"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
+                >
+                  Degree Type *
                 </label>
                 <select
-                  id="graduationYear"
+                  id="degreeType"
                   required
-                  value={formData.graduationYear || ""}
+                  value={formData.degreeType}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      graduationYear: parseInt(e.target.value),
+                      degreeType: e.target.value as any,
                     })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
                 >
-                  <option value="">Select year</option>
-                  {years.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
+                  <option value="">Select degree type</option>
+                  {degreeTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
                     </option>
                   ))}
                 </select>
               </div>
 
-              {/* GPA */}
+              {/* Academic Level */}
               <div>
                 <label
-                  htmlFor="gpa"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="academicLevel"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
                 >
-                  GPA *
+                  Academic Level *
                 </label>
-                <input
-                  id="gpa"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="4.0"
+                <select
+                  id="academicLevel"
                   required
-                  value={formData.gpa}
+                  value={formData.academicLevel}
                   onChange={(e) =>
-                    setFormData({ ...formData, gpa: e.target.value })
+                    setFormData({
+                      ...formData,
+                      academicLevel: e.target.value as any,
+                    })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
-                  placeholder="3.75"
-                />
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                >
+                  <option value="">Select academic level</option>
+                  {academicLevels.map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </div>
 
-            {/* Domains of Interest */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Domains of Interest * (Select all that apply)
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {availableDomains.map((domain) => (
+              {/* Graduation Year and GPA Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Graduation Year */}
+                <div>
                   <label
-                    key={domain}
-                    className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
-                      formData.domainsOfInterest.includes(domain)
-                        ? "border-maroon-500 bg-maroon-50"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
+                    htmlFor="graduationYear"
+                    className="block text-sm font-semibold text-gray-800 mb-2"
                   >
-                    <input
-                      type="checkbox"
-                      checked={formData.domainsOfInterest.includes(domain)}
-                      onChange={() => handleDomainToggle(domain)}
-                      className="mr-2 rounded border-gray-300 text-maroon-500 focus:ring-maroon-500"
-                    />
-                    <span className="text-sm">{domain}</span>
+                    Expected Graduation Year *
                   </label>
-                ))}
-              </div>
-            </div>
+                  <select
+                    id="graduationYear"
+                    required
+                    value={formData.graduationYear || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        graduationYear: parseInt(e.target.value),
+                      })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                  >
+                    <option value="">Select year</option>
+                    {years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            {/* Target Industries */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Target Industries * (Select all that apply)
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {availableIndustries.map((industry) => (
+                {/* GPA */}
+                <div>
                   <label
-                    key={industry}
-                    className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
-                      formData.targetIndustries.includes(industry)
-                        ? "border-maroon-500 bg-maroon-50"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
+                    htmlFor="gpa"
+                    className="block text-sm font-semibold text-gray-800 mb-2"
                   >
-                    <input
-                      type="checkbox"
-                      checked={formData.targetIndustries.includes(industry)}
-                      onChange={() => handleIndustryToggle(industry)}
-                      className="mr-2 rounded border-gray-300 text-maroon-500 focus:ring-maroon-500"
-                    />
-                    <span className="text-sm">{industry}</span>
+                    GPA *
                   </label>
-                ))}
+                  <input
+                    id="gpa"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="4.0"
+                    required
+                    value={formData.gpa}
+                    onChange={(e) =>
+                      setFormData({ ...formData, gpa: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
+                    placeholder="3.75"
+                  />
+                </div>
               </div>
-            </div>
+            </section>
+
+            {/* Preferences & Interests */}
+            <section className="space-y-4 pt-2">
+              <h2 className="text-xs font-semibold tracking-wide text-[#500000] uppercase">
+                Interests & Preferences
+              </h2>
+
+              {/* Domains of Interest */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-3">
+                  Domains of Interest * (Select all that apply)
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  {availableDomains.map((domain) => (
+                    <label
+                      key={domain}
+                      className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
+                        formData.domainsOfInterest.includes(domain)
+                          ? "border-[#500000] bg-[#F8F7F2]"
+                          : "border-gray-300 hover:border-gray-400 bg-white"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.domainsOfInterest.includes(domain)}
+                        onChange={() => handleDomainToggle(domain)}
+                        className="mr-2 rounded border-gray-300 text-[#500000] focus:ring-[#500000]"
+                      />
+                      <span className="text-sm">{domain}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Target Industries */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-3">
+                  Target Industries * (Select all that apply)
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  {availableIndustries.map((industry) => (
+                    <label
+                      key={industry}
+                      className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition ${
+                        formData.targetIndustries.includes(industry)
+                          ? "border-[#500000] bg-[#F8F7F2]"
+                          : "border-gray-300 hover:border-gray-400 bg-white"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.targetIndustries.includes(industry)}
+                        onChange={() => handleIndustryToggle(industry)}
+                        className="mr-2 rounded border-gray-300 text-[#500000] focus:ring-[#500000]"
+                      />
+                      <span className="text-sm">{industry}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </section>
 
             {/* Resume Upload */}
             <div>
@@ -465,7 +549,7 @@ export default function RegisterPage() {
                     setError("");
                   }
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#500000] focus:border-[#500000] bg-white"
               />
               {resumeFile && (
                 <p className="text-xs text-green-600 mt-1">
@@ -476,11 +560,11 @@ export default function RegisterPage() {
             </div>
 
             {/* Need Mentor */}
-            <div className="border-t pt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+            <section className="border-t border-[#E4E1D6] pt-6 mt-2">
+              <label className="block text-sm font-semibold text-gray-800 mb-3">
                 Do you need a mentor? *
               </label>
-              <div className="flex space-x-4">
+              <div className="flex flex-wrap gap-4">
                 <label className="flex items-center">
                   <input
                     type="radio"
@@ -489,9 +573,9 @@ export default function RegisterPage() {
                     onChange={() =>
                       setFormData({ ...formData, needsMentor: true })
                     }
-                    className="mr-2 border-gray-300 text-maroon-500 focus:ring-maroon-500"
+                    className="mr-2 border-gray-300 text-[#500000] focus:ring-[#500000]"
                   />
-                  <span>Yes</span>
+                  <span>Yes — I’d like help with networking and career planning</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -501,12 +585,12 @@ export default function RegisterPage() {
                     onChange={() =>
                       setFormData({ ...formData, needsMentor: false })
                     }
-                    className="mr-2 border-gray-300 text-maroon-500 focus:ring-maroon-500"
+                    className="mr-2 border-gray-300 text-[#500000] focus:ring-[#500000]"
                   />
-                  <span>No</span>
+                  <span>Not right now</span>
                 </label>
               </div>
-            </div>
+            </section>
 
             {/* Submit Button */}
             <div className="flex justify-end space-x-4 pt-6">
@@ -520,7 +604,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-6 py-2 bg-maroon-500 text-white rounded-lg font-semibold hover:bg-maroon-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-[#500000] text-white rounded-lg font-semibold hover:bg-[#440000] disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
               >
                 {isLoading ? "Submitting..." : "Complete Registration"}
               </button>

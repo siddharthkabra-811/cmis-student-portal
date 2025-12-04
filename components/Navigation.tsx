@@ -64,19 +64,20 @@ export default function Navigation() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                  pathname === link.href
-                    ? "bg-maroon-50 text-maroon-700"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200
+                  ${isActive ? "text-maroon-700" : "text-gray-700 hover:text-maroon-700"}
+                  after:absolute after:left-4 after:-bottom-0.5 after:h-0.5 after:bg-maroon-600 after:rounded-full after:w-0 hover:after:w-[calc(100%-2rem)] after:transition-all after:duration-200`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right side - Notifications & User Menu */}
