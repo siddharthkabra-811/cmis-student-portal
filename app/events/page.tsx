@@ -152,10 +152,12 @@ function EventCard({
 
   useEffect(() => {
     // Check if user is registered in CMIS from localStorage
-    const currentUser = localStorage.getItem("currentUser");
-    if (currentUser) {
-      const userData = JSON.parse(currentUser);
-      setIsStudentRegistered(userData.isRegistered || false);
+    if (typeof window !== 'undefined') {
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        const userData = JSON.parse(currentUser);
+        setIsStudentRegistered(userData.isRegistered || false);
+      }
     }
   }, []);
 

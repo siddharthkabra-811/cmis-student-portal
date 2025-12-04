@@ -1,180 +1,125 @@
 "use client";
 
-import { User } from "@/lib/types";
-import { useRouter } from "next/navigation";
-import React, { FormEvent, useState } from "react";
+import { GraduationCap, Shield, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-
-  const login = async (email: string, password: string): Promise<boolean> => {
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error("Login failed:", data.error);
-        return false;
-      }
-
-      // Map database response to User type
-      const studentData = data.student;
-      const mappedUser: User = {
-        id: String(studentData.id),
-        email: studentData.email,
-        password: "", // Don't store password in client
-        name: studentData.name || "",
-        uin: studentData.uin || "",
-        avatar: "/avatars/default-avatar.jpg", // Default avatar
-        bio: "", // Not in database, default empty
-        degreeType: studentData.degreeType || "",
-        academicLevel: studentData.academicLevel || "",
-        graduationYear: studentData.graduationYear || null,
-        domainsOfInterest: Array.isArray(studentData.domainsOfInterest)
-          ? studentData.domainsOfInterest
-          : typeof studentData.domainsOfInterest === "string"
-          ? JSON.parse(studentData.domainsOfInterest || "[]")
-          : [],
-        targetIndustries: Array.isArray(studentData.targetIndustries)
-          ? studentData.targetIndustries
-          : typeof studentData.targetIndustries === "string"
-          ? JSON.parse(studentData.targetIndustries || "[]")
-          : [],
-        resumeUrl: studentData.resumeUrl || "",
-        needsMentor: studentData.needsMentor || false,
-        // isCMISRegistered: studentData.isRegistered || false,
-        isRegistered: studentData.isRegistered, // If they can login, they're registered
-        mentor: undefined, // Not in database, can be fetched separately if needed
-        activityLog: [], // Not in database, can be fetched separately if needed
-      };
-
-      localStorage.setItem("currentUser", JSON.stringify(mappedUser));
-      return true;
-    } catch (error) {
-      console.error("Login error:", error);
-      return false;
-    }
-  };
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      const success = await login(email, password);
-      if (success) {
-        router.push("/dashboard");
-      } else {
-        setError("Invalid email or password");
-      }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          {/* Logo and Header */}
-          <div className="text-center mb-8">
-            <div className="mb-4">
-              <h1 className="text-3xl font-bold text-maroon-500">
-                CMIS Portal
-              </h1>
-              <p className="text-sm text-gray-600 mt-2">Mays Business School</p>
-              <p className="text-xs text-gray-500">Texas A&M University</p>
+    <div className="min-h-screen bg-gradient-to-br from-[#500000] via-[#3d0000] to-[#500000] relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-96 h-96 -top-48 -left-48 bg-[#500000] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute w-96 h-96 -top-48 -right-48 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        <div className="absolute w-96 h-96 -bottom-48 left-1/2 bg-[#500000] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div className="relative z-10 min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="pt-12 px-6 pb-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-center space-x-8 mb-6">
+              {/* Texas A&M Logo */}
+              <Image 
+                src="/primaryTAM.png" 
+                alt="Texas A&M University"
+                width={80}
+                height={80}
+                className="h-16 md:h-20 w-auto"
+                unoptimized
+              />
+              {/* Mays Business School Logo */}
+              <div className="text-left border-l-2 border-white/30 pl-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  Council for the Management of Information Systems
+                </h1>
+                <p className="text-white/90 font-medium text-sm md:text-base mt-1">
+                  Mays Business School
+                </p>
+              </div>
             </div>
           </div>
+        </header>
 
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Email Address
-              </label>
-              <input
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent outline-none transition"
-                placeholder="your.email@tamu.edu"
-                autoComplete="email"
-              />
+        {/* Main Content */}
+        <main className="flex-1 flex items-center justify-center px-6 py-12">
+          <div className="max-w-6xl w-full">
+            {/* Welcome Section */}
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+                Select Your Portal
+              </h2>
             </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-500 focus:border-transparent outline-none transition"
-                placeholder="Enter your password"
-                autoComplete="current-password"
-              />
+            {/* Portal Cards */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Student Portal Card */}
+              <Link href="/login">
+                <div className="group relative cursor-pointer">
+                  <div className="absolute inset-0 bg-white rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition duration-500"></div>
+                  <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-10 border-2 border-white/30 hover:border-white/50 transition-all duration-300 transform group-hover:scale-105 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-6">
+                      {/* Icon */}
+                      <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center shadow-xl">
+                        <GraduationCap className="w-12 h-12 text-[#500000]" strokeWidth={2.5} />
+                      </div>
+
+                      {/* Title */}
+                      <div>
+                        <h3 className="text-3xl font-bold text-white mb-2">
+                          Student
+                        </h3>
+                      </div>
+
+                      {/* CTA Button */}
+                      <button className="w-full bg-white hover:bg-gray-100 text-[#500000] font-bold py-4 px-8 rounded-xl flex items-center justify-center space-x-2 transition-all duration-300 shadow-lg">
+                        <span>Enter Portal</span>
+                        <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Admin Portal Card */}
+              <Link href="https://cmis-admin-portal.vercel.app">
+                <div className="group relative cursor-pointer">
+                  <div className="absolute inset-0 bg-white rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition duration-500"></div>
+                  <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-10 border-2 border-white/30 hover:border-white/50 transition-all duration-300 transform group-hover:scale-105 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-6">
+                      {/* Icon */}
+                      <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center shadow-xl">
+                        <Shield className="w-12 h-12 text-[#500000]" strokeWidth={2.5} />
+                      </div>
+
+                      {/* Title */}
+                      <div>
+                        <h3 className="text-3xl font-bold text-white mb-2">
+                          Admin
+                        </h3>
+                      </div>
+
+                      {/* CTA Button */}
+                      <button className="w-full bg-white hover:bg-gray-100 text-[#500000] font-bold py-4 px-8 rounded-xl flex items-center justify-center space-x-2 transition-all duration-300 shadow-lg">
+                        <span>Enter Portal</span>
+                        <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
+          </div>
+        </main>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-maroon-500 focus:ring-maroon-500"
-                />
-                <span className="ml-2 text-gray-600">Remember me</span>
-              </label>
-              <button
-                type="button"
-                className="text-maroon-500 hover:text-maroon-600 font-medium"
-              >
-                Forgot password?
-              </button>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-maroon-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-maroon-600 focus:outline-none focus:ring-2 focus:ring-maroon-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Signing in..." : "Sign In"}
-            </button>
-          </form>
-
-          {/* Footer */}
-          <p className="text-center text-sm text-gray-600 mt-6">
-            © 2025 Mays Business School. All rights reserved.
-          </p>
-        </div>
+        {/* Footer */}
+        <footer className="py-8 px-6">
+          <div className="max-w-7xl mx-auto text-center">
+            <p className="text-white/70 text-sm">
+              © 2025 Texas A&M University
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );

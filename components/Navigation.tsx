@@ -8,12 +8,19 @@ import React, { useEffect, useRef, useState } from "react";
 export default function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
-  const user = localStorage.getItem("currentUser")
-    ? JSON.parse(localStorage.getItem("currentUser")!)
-    : null;
+  const [user, setUser] = useState<any>(null);
   const { unreadCount } = useNotifications();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        setUser(JSON.parse(currentUser));
+      }
+    }
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -27,8 +34,10 @@ export default function Navigation() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    localStorage.clear();
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("currentUser");
+      localStorage.clear();
+    }
     router.push("/");
   };
 

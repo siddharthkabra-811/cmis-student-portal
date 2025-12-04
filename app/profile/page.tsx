@@ -5,13 +5,21 @@ import ResumeUploadDialog from "@/components/ResumeUploadDialog";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Resume } from "@/lib/types";
 
 export default function ProfilePage() {
-  const details = localStorage?.getItem("currentUser");
-  const userDetails = details ? JSON.parse(details) : null;
+  const [userDetails, setUserDetails] = useState<any>(null);
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const details = localStorage.getItem("currentUser");
+      if (details) {
+        setUserDetails(JSON.parse(details));
+      }
+    }
+  }, []);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["userProfile"],

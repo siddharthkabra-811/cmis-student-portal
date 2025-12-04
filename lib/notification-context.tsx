@@ -20,11 +20,15 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Load notifications from localStorage or use dummy data
-    const stored = localStorage.getItem('notifications');
-    if (stored) {
-      try {
-        setNotifications(JSON.parse(stored));
-      } catch (error) {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('notifications');
+      if (stored) {
+        try {
+          setNotifications(JSON.parse(stored));
+        } catch (error) {
+          setNotifications(dummyNotifications);
+        }
+      } else {
         setNotifications(dummyNotifications);
       }
     } else {
@@ -34,7 +38,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Save to localStorage whenever notifications change
-    if (notifications.length > 0) {
+    if (typeof window !== 'undefined' && notifications.length > 0) {
       localStorage.setItem('notifications', JSON.stringify(notifications));
     }
   }, [notifications]);

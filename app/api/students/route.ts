@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { getPresignedUrl } from '@/lib/s3';
 
+export const dynamic = 'force-dynamic';
+
 // Helper function to parse JSON fields
 const parseJsonField = (field: any): string[] => {
   if (!field) return [];
@@ -20,7 +22,7 @@ const parseJsonField = (field: any): string[] => {
 // GET - Retrieve student(s)
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const searchParams = request.nextUrl.searchParams;
     const studentId = searchParams.get('id');
     const email = searchParams.get('email');
     const uin = searchParams.get('uin');

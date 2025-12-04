@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import { getPresignedUrl } from '@/lib/s3';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/events/[id]
  * 
