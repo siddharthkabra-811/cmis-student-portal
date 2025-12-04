@@ -16,7 +16,7 @@ export default function ProfilePage() {
         setUserDetails(JSON.parse(details));
       }
     }
-  }, [userDetails]);
+  }, []);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["userProfile", userDetails?.id],

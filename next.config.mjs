@@ -10,7 +10,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.tamu.edu',
       },
+      {
+        protocol: 'https',
+        hostname: 'logos-world.net',
+      },
     ],
+    formats: ['image/avif', 'image/webp'],
+    // unoptimized: false,
   },
 };
 
