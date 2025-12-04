@@ -187,7 +187,7 @@ export default function AlumniPage() {
               <div className="text-5xl mb-6">🤝</div>
               <h3 className="text-3xl font-bold mb-4">Become a CMIS Mentor</h3>
               <p className="text-blue-100 mb-8 text-lg leading-relaxed">
-                Make a difference in a student's career by sharing your expertise and experience.
+                Make a difference in a student&apos; career by sharing your expertise and experience.
               </p>
               <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center gap-2 group">
                 Join Mentorship Network
