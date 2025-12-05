@@ -188,6 +188,9 @@ export async function POST(request: NextRequest) {
     updateFields.push(`name = $${paramIndex++}`);
     updateValues.push(name);
 
+    updateFields.push(`uin = $${paramIndex++}`);
+    updateValues.push(uin.trim());
+
     updateFields.push(`degree_type = $${paramIndex++}`);
     updateValues.push(degreeType);
 
