@@ -10,19 +10,22 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 
-// Dummy images for events
-const DUMMY_EVENT_IMAGES = [
-  "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&auto=format&fit=crop",
-];
-
-// Function to get a random image from the dummy images array
-function getRandomEventImage(): string {
-  return DUMMY_EVENT_IMAGES[Math.floor(Math.random() * DUMMY_EVENT_IMAGES.length)];
+// Function to get event image based on title
+function getEventImage(title: string): string {
+  const titleLower = title.toLowerCase();
+  // Match specific event types based on title
+  if (titleLower.includes("data engineering")) {
+    return "/data-engineering.jpg";
+  } else if (titleLower.includes("product management") || titleLower.includes("product manager")) {
+    return "/product-management.jpg";
+  } else if (title.includes("Software Engineering Case Competition") || titleLower.includes("software engineer")) {
+    return "/software-engineering.jpg";
+  } else if (titleLower.includes("ai") || titleLower.includes("artificial intelligence")) {
+    return "/cmis-ai.jpg";
+  }
+  
+  // Default fallback image
+  return "/cmis.png";
 }
 
 export default function EventsPage() {
@@ -125,14 +128,14 @@ export default function EventsPage() {
 // Helper function to format time from "HH:MM:SS" to "h:MM AM/PM"
 function formatTime(timeString: string): string {
   if (!timeString) return "";
-  
+
   const [hours, minutes] = timeString.split(":");
   const hour = parseInt(hours, 10);
   const minute = parseInt(minutes, 10);
-  
+
   const period = hour >= 12 ? "PM" : "AM";
   const displayHour = hour % 12 || 12;
-  
+
   return `${displayHour}:${minute.toString().padStart(2, "0")} ${period}`;
 }
 
@@ -152,7 +155,7 @@ function EventCard({
 
   useEffect(() => {
     // Check if user is registered in CMIS from localStorage
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const currentUser = localStorage.getItem("currentUser");
       if (currentUser) {
         const userData = JSON.parse(currentUser);
@@ -194,7 +197,7 @@ function EventCard({
       <Link href={`/events/${event.id}`} className="flex-1 flex flex-col">
         <div className="relative h-48 bg-gray-200 flex-shrink-0">
           <Image
-            src={event.image || getRandomEventImage()}
+            src={getEventImage(event?.title)}
             alt={event.title}
             fill
             className="object-cover group-hover:scale-105 transition duration-300"
