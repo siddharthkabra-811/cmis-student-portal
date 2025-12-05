@@ -19,12 +19,12 @@ function getEventImage(title: string): string {
     return "/product-management.jpg";
   } else if (title.includes("Software Engineering Case Competition") || titleLower.includes("software engineer")) {
     return "/software-engineering.jpg";
-  } else if (titleLower.includes("CMIS Case Competition") || titleLower.includes("CMIS Case Competition")) {
+  } else if (titleLower.includes("cmis case competition") || titleLower.includes("cmis case competition")) {
     return "/cmis.jpg";
   }
   
   // Default fallback image
-  return "/cmis.png";
+  return "/cmis.jpg";
 }
 
 export default function EventDetailPage() {
