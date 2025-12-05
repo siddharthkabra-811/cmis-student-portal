@@ -19,7 +19,7 @@ function getEventImage(title: string): string {
     return "/product-management.jpg";
   } else if (title.includes("Software Engineering Case Competition") || titleLower.includes("software engineer")) {
     return "/software-engineering.jpg";
-  } else if (titleLower.includes("ai") || titleLower.includes("artificial intelligence")) {
+  } else if (titleLower.includes("CMIS Case Competition") || titleLower.includes("CMIS Case Competition")) {
     return "/cmis-ai.jpg";
   }
   
