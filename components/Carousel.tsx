@@ -13,7 +13,7 @@ interface CarouselItem {
 const carouselItems: CarouselItem[] = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop',
+    image: '/cmis-ai.webp',
     title: 'AI in Business Summit 2024',
     description: 'Exploring the future of artificial intelligence in enterprise'
   },

@@ -10,6 +10,23 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+function getEventImage(title: string): string {
+  const titleLower = title.toLowerCase();
+  // Match specific event types based on title
+  if (titleLower.includes("data engineering")) {
+    return "/data-engineering.jpg";
+  } else if (titleLower.includes("product management") || titleLower.includes("product manager")) {
+    return "/product-management.jpg";
+  } else if (title.includes("Software Engineering Case Competition") || titleLower.includes("software engineer")) {
+    return "/software-engineering.jpg";
+  } else if (titleLower.includes("ai") || titleLower.includes("artificial intelligence")) {
+    return "/cmis-ai.jpg";
+  }
+  
+  // Default fallback image
+  return "/cmis.png";
+}
+
 export default function EventDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -100,7 +117,7 @@ export default function EventDetailPage() {
         {/* Event Header Image */}
         <div className="relative h-96 bg-gray-200 rounded-xl overflow-hidden mb-8 shadow-lg">
           <Image
-            src={event?.image}
+            src={getEventImage(event?.title)}
             alt={`${event?.title}`}
             fill
             className="object-cover"
