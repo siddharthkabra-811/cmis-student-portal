@@ -20,7 +20,7 @@ function getEventImage(title: string): string {
   } else if (title.includes("Software Engineering Case Competition") || titleLower.includes("software engineer")) {
     return "/software-engineering.jpg";
   } else if (titleLower.includes("CMIS Case Competition") || titleLower.includes("CMIS Case Competition")) {
-    return "/cmis-ai.jpg";
+    return "/cmis.jpg";
   }
   
   // Default fallback image
